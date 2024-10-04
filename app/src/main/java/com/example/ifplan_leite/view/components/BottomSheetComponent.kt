@@ -52,7 +52,9 @@ fun BottomSheetView(
                 // MARK: Button to save forms
                 Button(onClick = {
                     scope.launch { sheetState.hide() }.invokeOnCompletion {
-                        onSaveClick()
+                        if (!sheetState.isVisible) {
+                            onSaveClick()
+                        }
                     }
                 }) {
                     Text("Salvar")

@@ -16,7 +16,10 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -35,11 +38,12 @@ fun DashboardScreen(
     modifier: Modifier = Modifier,
     viewModel: BottomSheetViewModel = BottomSheetViewModel()
 ) {
-    val showBottomSheet by viewModel.showBottomSheet.collectAsState()
+//    val showBottomSheet by viewModel.showBottomSheet.collectAsState()
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = false,
     )
     val coroutineScope = rememberCoroutineScope()
+    var showBottomSheet by remember {  mutableStateOf(false) }
 
     Column(
         modifier
@@ -78,11 +82,9 @@ fun DashboardScreen(
                     modifier.fillMaxWidth().padding(top = 16.dp),
                     contentAlignment = Alignment.CenterEnd
                 ) {
-                    Button(onClick = ({
-                        coroutineScope.launch {
-                            sheetState.show()
-                        }
-                    }), ) {
+                    Button(onClick = {
+                        showBottomSheet = true
+                    }, ) {
                         Text(text = "Editar", fontWeight = FontWeight.Bold)
                     }
                 }
@@ -91,14 +93,12 @@ fun DashboardScreen(
     }
 
     // MARK: Bottom Sheet
-    if (sheetState.isVisible) {
+    if(showBottomSheet) {
         BottomSheetView(
             sheetTitle = "Editar Animal",
             sheetState = sheetState,
-            onCloseRequest = {
-                coroutineScope.launch { sheetState.hide() }
-            },
-            onSaveClick = { viewModel.saveChanges() }
+            onCloseRequest = { showBottomSheet = false },
+            onSaveClick = { showBottomSheet = false }
         ) {
             // MARK: Here will have a forms
             Text("Content example")
@@ -106,12 +106,6 @@ fun DashboardScreen(
     }
 
 }
-
-@OptIn(ExperimentalMaterial3Api::class)
-suspend fun closeBottomSheet(sheetState: SheetState) {
-    sheetState.hide()
-}
-
 
 @Preview(showBackground = true, showSystemUi = true, )
 @Composable
