@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 fun BottomSheetView(
     modifier: Modifier = Modifier,
     sheetTitle: String = "",
+    isVisible: Boolean = false,
     sheetState: SheetState,
     onCloseRequest: () -> Unit = {},
     onSaveClick: () -> Unit = {},
@@ -33,36 +34,40 @@ fun BottomSheetView(
 ) {
     val scope = rememberCoroutineScope()
 
-    Box {
-        ModalBottomSheet(
-            sheetState = sheetState,
-            onDismissRequest = { onCloseRequest() },
-            modifier = modifier
-                .fillMaxHeight()
-                .padding(8.dp)
-        ){
-            // Sheet content
-            Column() {
-                // Title
-                BottomSheetTitle(modifier, title = sheetTitle)
+    Column (modifier.fillMaxHeight().padding(8.dp),) {
+        if(isVisible) {
+            ModalBottomSheet(
+                sheetState = sheetState,
+                onDismissRequest = { onCloseRequest() },
+                modifier = modifier
+                    .fillMaxHeight()
+            ){
+                // Sheet content
+                Column(modifier.padding(horizontal = 16.dp)) {
+                    // Title
+                    BottomSheetTitle(modifier, title = sheetTitle)
 
-                // MARK: Here will have a forms
-                content()
+                    // MARK: Here will have a forms
+                    content()
 
-                // MARK: Button to save forms
-                Button(onClick = {
-                    scope.launch { sheetState.hide() }.invokeOnCompletion {
-                        if (!sheetState.isVisible) {
-                            onSaveClick()
+                    // MARK: Button to save forms
+                    Box(
+                        modifier.fillMaxWidth().padding(top = 8.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Button(onClick = {
+                            scope.launch { sheetState.hide() }.invokeOnCompletion {
+                                if (!sheetState.isVisible) {
+                                    onSaveClick()
+                                }
+                            }
+                        }) {
+                            Text("Salvar")
                         }
                     }
-                }) {
-                    Text("Salvar")
                 }
             }
-
         }
-
     }
 }
 

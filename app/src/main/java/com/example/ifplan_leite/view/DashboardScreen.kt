@@ -1,11 +1,14 @@
 package com.example.ifplan_leite.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,7 +32,7 @@ import com.example.ifplan_leite.model.BottomSheetViewModel
 import com.example.ifplan_leite.model.TitleAndValue
 import com.example.ifplan_leite.view.components.BottomSheetView
 import com.example.ifplan_leite.view.components.TitleValueComponent
-import kotlinx.coroutines.launch
+import com.example.ifplan_leite.view.screens.animal.AnimalView
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,73 +41,17 @@ fun DashboardScreen(
     modifier: Modifier = Modifier,
     viewModel: BottomSheetViewModel = BottomSheetViewModel()
 ) {
-//    val showBottomSheet by viewModel.showBottomSheet.collectAsState()
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = false,
-    )
-    val coroutineScope = rememberCoroutineScope()
-    var showBottomSheet by remember {  mutableStateOf(false) }
-
     Column(
         modifier
             .fillMaxWidth()
             .fillMaxHeight()
             .background(MaterialTheme.colorScheme.background)
             .padding(8.dp)
+            .verticalScroll(rememberScrollState()),
     ) {
         // Animal
-        Card(
-            modifier.fillMaxWidth(),
-        ) {
-            // TODO: After create a component for it
-            Column(modifier.padding(16.dp)) {
-                Text(
-                    text = "Animal",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                    modifier = modifier.padding(bottom = 8.dp)
-                )
-                val mockValues = listOf(
-                    TitleAndValue("Peso corporal (kg)", "10,00"),
-                    TitleAndValue("Produção de leite (L/vaca/dia)", "110,00"),
-                    TitleAndValue("Teor de gordura no leite (%)", "110,00"),
-                    TitleAndValue("Teor de PB no leite (%)", "110,00"),
-                    TitleAndValue("Deslocamento horizontal (m)", "110,00"),
-                    TitleAndValue("Deslocamento Vertical (m)", "110,00"),
-                    TitleAndValue("Vacas em lactação (%)", "110,00"),
-                )
-
-                for (value in mockValues) {
-                    TitleValueComponent(value.title, value.value)
-                }
-
-                Box(
-                    modifier.fillMaxWidth().padding(top = 16.dp),
-                    contentAlignment = Alignment.CenterEnd
-                ) {
-                    Button(onClick = {
-                        showBottomSheet = true
-                    }, ) {
-                        Text(text = "Editar", fontWeight = FontWeight.Bold)
-                    }
-                }
-            }
-        }
+        AnimalView()
     }
-
-    // MARK: Bottom Sheet
-    if(showBottomSheet) {
-        BottomSheetView(
-            sheetTitle = "Editar Animal",
-            sheetState = sheetState,
-            onCloseRequest = { showBottomSheet = false },
-            onSaveClick = { showBottomSheet = false }
-        ) {
-            // MARK: Here will have a forms
-            Text("Content example")
-        }
-    }
-
 }
 
 @Preview(showBackground = true, showSystemUi = true, )
