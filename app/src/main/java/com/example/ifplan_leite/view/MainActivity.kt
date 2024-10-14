@@ -19,7 +19,6 @@ import com.example.ifplan_leite.ui.theme.IFPlanLeiteTheme
 
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -59,33 +58,3 @@ private fun SetBarColor(color: Color) {
         systemUiController.setSystemBarsColor(color)
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    IFPlanLeiteTheme {
-//        Greeting("Android")
-//    }
-//}
-
-//@Preview(showBackground =  true)
-//@Composable
-//fun HomeScreen() {
-//    Scaffold(
-////        modifier = Modifier.fillMaxSize()
-//        bottomBar = {
-//
-//        }
-//    ) { padding ->
-//        Column (
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .padding(padding)
-//        ){
-//            // AREA
-//            // ECONOMY
-//            // WHEATER AND SOLO
-//            // ANIMAL
-//        }
-//    }
-//}

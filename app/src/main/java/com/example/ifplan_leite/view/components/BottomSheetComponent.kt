@@ -16,9 +16,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.ifplan_leite.R
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,13 +36,18 @@ fun BottomSheetView(
 ) {
     val scope = rememberCoroutineScope()
 
-    Column (modifier.fillMaxHeight().padding(8.dp),) {
+    Column (
+        modifier
+            .fillMaxHeight()
+            .padding(8.dp))
+    {
         if(isVisible) {
             ModalBottomSheet(
                 sheetState = sheetState,
                 onDismissRequest = { onCloseRequest() },
                 modifier = modifier
                     .fillMaxHeight()
+                    .padding(top = 24.dp)
             ){
                 // Sheet content
                 Column(modifier.padding(horizontal = 16.dp)) {
@@ -52,17 +59,20 @@ fun BottomSheetView(
 
                     // MARK: Button to save forms
                     Box(
-                        modifier.fillMaxWidth().padding(top = 8.dp),
+                        modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Button(onClick = {
-                            scope.launch { sheetState.hide() }.invokeOnCompletion {
+                            onSaveClick()
+                            scope.launch {  }.invokeOnCompletion {
                                 if (!sheetState.isVisible) {
-                                    onSaveClick()
+
                                 }
                             }
                         }) {
-                            Text("Salvar")
+                            Text(stringResource(R.string.save))
                         }
                     }
                 }
@@ -81,7 +91,7 @@ private fun BottomSheetTitle(modifier: Modifier, title: String) {
             text = title,
             fontWeight = FontWeight.Bold,
             fontSize = MaterialTheme.typography.headlineMedium.fontSize,
-            modifier = modifier.padding(bottom = 8.dp)
+            modifier = modifier.padding(bottom = 16.dp)
         )
     }
 }

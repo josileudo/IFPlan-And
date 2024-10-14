@@ -1,12 +1,11 @@
-package com.example.ifplan_leite.model.utils
+package com.ban.currencyamountinput
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
+import java.lang.Integer.max
 import java.text.DecimalFormat
-import kotlin.math.max
-
 
 class CurrencyAmountInputVisualTransformation(
     private val fixedCursorAtTheEnd: Boolean = true,

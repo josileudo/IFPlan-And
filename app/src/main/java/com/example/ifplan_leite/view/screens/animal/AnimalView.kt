@@ -1,5 +1,6 @@
 package com.example.ifplan_leite.view.screens.animal
 
+import CurrencyInputViewModel
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,22 +21,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ifplan_leite.model.TitleAndValue
 import com.example.ifplan_leite.view.components.BottomSheetView
 import com.example.ifplan_leite.view.components.TitleValueComponent
 import com.example.ifplan_leite.view.screens.animal.components.AnimalFormView
+import com.example.ifplan_leite.view_model.AnimalViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AnimalView(modifier: Modifier = Modifier) {
+fun AnimalView(
+    modifier: Modifier = Modifier,
+    animalViewModel: AnimalViewModel = viewModel())
+{
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = false,
     )
     var showBottomSheet by remember {  mutableStateOf(false) }
 
-    Card(
-        modifier.fillMaxWidth(),
-    ) {
+    Card(modifier.fillMaxWidth()) {
         // TODO: After create a component for it
         Column(modifier.padding(16.dp)) {
             Text(
@@ -76,18 +80,20 @@ fun AnimalView(modifier: Modifier = Modifier) {
         sheetTitle = "Editar Animal",
         sheetState = sheetState,
         isVisible = showBottomSheet,
-        onCloseRequest = { showBottomSheet = false },
-        onSaveClick = { showBottomSheet = false }
+        onCloseRequest = { showBottomSheet = true },
+        onSaveClick = {
+//            showBottomSheet = false
+            animalViewModel.saveAnimal()
+        }
     ) {
-        // MARK: Here will have a forms
-        AnimalFormView()
+        AnimalFormView(animalViewModel = animalViewModel, currencyInputViewModel = CurrencyInputViewModel())
     }
 }
-
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun AnimalViewPreview() {
-    AnimalView()
+    AnimalView( )
 }
+
 

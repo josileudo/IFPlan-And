@@ -2,8 +2,8 @@ package com.example.ifplan_leite.view.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.VisualTransformation
@@ -19,14 +19,15 @@ fun TextInputView(
         visualTransformation: VisualTransformation = VisualTransformation.None,
         onValueChange: (String) -> Unit = {}
 ) {
-    TextField(
+    OutlinedTextField(
         label = { Text(label) },
         keyboardOptions = keyboardOptions,
         maxLines = maxLines,
         modifier = modifier.fillMaxWidth(),
         value = value,
         visualTransformation = visualTransformation,
-        onValueChange = onValueChange
+        onValueChange = onValueChange,
+
     )
 }
 
