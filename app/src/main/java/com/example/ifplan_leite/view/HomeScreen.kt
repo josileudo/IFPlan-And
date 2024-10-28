@@ -49,7 +49,6 @@ fun HomeScreen(
         Card(
             modifier,
             shape = RoundedCornerShape(16.dp),
-
         ) {
             Text(
                 text = stringResource(R.string.welcome_ifplan_leite),

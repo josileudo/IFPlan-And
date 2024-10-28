@@ -46,12 +46,12 @@ class AnimalViewModel() : ViewModel() {
         return numberString.replace("[.,\\u00A0]".toRegex(), "")
     }
 
-    fun updatePesoCorporal(value: String) { pesoCorporal = cleanInputToDouble(value) }
-    fun updateMilkProduction(value: String) { milkProduction = cleanInputToDouble(value) }
-    fun updateMilkFatContent(value: String) { milkFatContent = cleanInputToDouble(value) }
-    fun updatePbFatMilk(value: String) { pbFatMilk = cleanInputToDouble(value)}
-    fun updateHorizontalShift(value: String) { horizontalShift = cleanInputToDouble(value) }
-    fun updateVerticalShift(value: String) { verticalShift = cleanInputToDouble(value) }
+    fun updatePesoCorporal(value: Double) { pesoCorporal = value }
+    fun updateMilkProduction(value: Double) { milkProduction = value }
+    fun updateMilkFatContent(value: Double) { milkFatContent = value }
+    fun updatePbFatMilk(value: Double) { pbFatMilk = value}
+    fun updateHorizontalShift(value: Double) { horizontalShift = value }
+    fun updateVerticalShift(value: Double) { verticalShift = value }
     fun updateLactatingCows(value: Double) { lactatingCows = value }
 
     fun saveAnimal() {

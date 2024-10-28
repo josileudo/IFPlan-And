@@ -8,35 +8,33 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.ifplan_leite.Routes
 import com.example.ifplan_leite.ui.theme.IFPlanLeiteTheme
+import com.example.ifplan_leite.view.screens.animal.AnimalFormScreen
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         setContent {
+
             IFPlanLeiteTheme {
                 navController = rememberNavController()
-
                 SetBarColor(MaterialTheme.colorScheme.background)
+
                 NavHost(navController = navController, startDestination = Routes.home) {
                     composable(Routes.home) { HomeScreen(navController) }
-                    composable(Routes.dashboard) { DashboardScreen() }
+                    composable(Routes.dashboard) { DashboardScreen(navController = navController) }
+                    composable(Routes.animalInput) { AnimalFormScreen() }
                 }
-
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
-//                ) {
-//                }
             }
         }
     }

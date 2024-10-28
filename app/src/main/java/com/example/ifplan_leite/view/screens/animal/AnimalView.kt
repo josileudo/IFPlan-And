@@ -1,6 +1,5 @@
 package com.example.ifplan_leite.view.screens.animal
 
-import CurrencyInputViewModel
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,23 +21,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.ifplan_leite.model.TitleAndValue
-import com.example.ifplan_leite.view.components.BottomSheetView
 import com.example.ifplan_leite.view.components.TitleValueComponent
-import com.example.ifplan_leite.view.screens.animal.components.AnimalFormView
 import com.example.ifplan_leite.view_model.AnimalViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AnimalView(
     modifier: Modifier = Modifier,
-    animalViewModel: AnimalViewModel = viewModel())
-{
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = false,
-    )
-    var showBottomSheet by remember {  mutableStateOf(false) }
-
+    animalViewModel: AnimalViewModel = viewModel(),
+    navController: NavController?= null
+){
     Card(modifier.fillMaxWidth()) {
         // TODO: After create a component for it
         Column(modifier.padding(16.dp)) {
@@ -67,26 +60,12 @@ fun AnimalView(
                 contentAlignment = Alignment.CenterEnd
             ) {
                 Button(onClick = {
-                    showBottomSheet = true
+                    navController?.navigate("animal_input_screen")
                 }, ) {
                     Text(text = "Editar", fontWeight = FontWeight.Bold)
                 }
             }
         }
-    }
-
-    // MARK: Bottom Sheet
-    BottomSheetView(
-        sheetTitle = "Editar Animal",
-        sheetState = sheetState,
-        isVisible = showBottomSheet,
-        onCloseRequest = { showBottomSheet = true },
-        onSaveClick = {
-//            showBottomSheet = false
-            animalViewModel.saveAnimal()
-        }
-    ) {
-        AnimalFormView(animalViewModel = animalViewModel, currencyInputViewModel = CurrencyInputViewModel())
     }
 }
 

@@ -283,7 +283,7 @@ fun IFPlanLeiteTheme(
 
   MaterialTheme(
     colorScheme = colorScheme,
-    typography = AppTypography,
+    typography = appTypography(darkTheme),
     content = content
   )
 }
