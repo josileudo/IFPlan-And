@@ -3,6 +3,7 @@ accompanistInsets = "0.30.0"
 accompanistSystemuicontroller = "0.32.0"
 agp = "8.6.0"
 composeCurrencytext = "1.0.1"
+javaxInject = "1"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -13,15 +14,20 @@ activityCompose = "1.9.1"
 composeBom = "2024.04.01"
 navigationRuntimeKtx = "2.8.1"
 navigationCompose = "2.8.1"
+roomRuntime = "2.6.1"
 uiTextGoogleFonts = "1.7.2"
 engageCore = "1.5.5"
 roomCommon = "2.6.1"
+roomKtx = "2.6.1"
 
 [libraries]
 accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanistInsets" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 compose-currencytext = { module = "com.github.Muratthekus:Compose-CurrencyText", version.ref = "composeCurrencytext" }
+javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -40,6 +46,7 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 engage-core = { group = "com.google.android.engage", name = "engage-core", version.ref = "engageCore" }
 androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

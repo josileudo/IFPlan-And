@@ -50,6 +50,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.javax.inject)
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
     implementation (libs.compose.currencytext)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.core.ktx)
@@ -65,6 +68,7 @@ dependencies {
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.engage.core)
     implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
