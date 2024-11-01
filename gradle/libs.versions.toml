@@ -19,6 +19,7 @@ uiTextGoogleFonts = "1.7.2"
 engageCore = "1.5.5"
 roomCommon = "2.6.1"
 roomKtx = "2.6.1"
+constraintlayout = "2.2.0"
 
 [libraries]
 accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanistInsets" }
@@ -47,6 +48,7 @@ androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text
 engage-core = { group = "com.google.android.engage", name = "engage-core", version.ref = "engageCore" }
 androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

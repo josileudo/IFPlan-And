@@ -23,7 +23,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-
             IFPlanLeiteTheme {
                 navController = rememberNavController()
                 SetBarColor(MaterialTheme.colorScheme.background)
