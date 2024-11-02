@@ -10,7 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.ifplan_leite.view.components.FormInputValuesComponent
 import com.example.ifplan_leite.view.screens.animal.components.AnimalFormView
 import com.example.ifplan_leite.view_model.AnimalViewModel
@@ -18,7 +18,7 @@ import com.example.ifplan_leite.view_model.AnimalViewModel
 @Composable
 fun AnimalFormScreen(
     modifier: Modifier = Modifier,
-    animalViewModel: AnimalViewModel = viewModel()
+    animalViewModel: AnimalViewModel = hiltViewModel()
 ) {
     Box(
         modifier
@@ -32,7 +32,10 @@ fun AnimalFormScreen(
                 animalViewModel.saveAnimal()
             }
         ) {
-            AnimalFormView(animalViewModel = animalViewModel, currencyInputViewModel = CurrencyInputViewModel())
+            AnimalFormView(
+                animalViewModel = animalViewModel,
+                currencyInputViewModel = CurrencyInputViewModel()
+            )
         }
     }
 }

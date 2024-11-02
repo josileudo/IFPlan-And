@@ -4,9 +4,32 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.ifplan_leite.model.Animal
+import androidx.lifecycle.viewModelScope
+import com.example.ifplan_leite.data.entities.Animal
+import com.example.ifplan_leite.data.repository.AnimalRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AnimalViewModel() : ViewModel() {
+@HiltViewModel
+class AnimalViewModel @Inject constructor(
+    private val animalRepository: AnimalRepository
+) : ViewModel() {
+    private val _uiState = MutableStateFlow(AnimalUiState())
+    val uiState: StateFlow<AnimalUiState> = _uiState.asStateFlow()
+
+//    val animals = animalRepository
+//        .getAnimal().stateIn(
+//            scope = viewModelScope,
+//            started = SharingStarted.WhileSubscribed(5000),
+//            initialValue = null
+//        )
     var pesoCorporal by mutableDoubleStateOf(0.0)
         private set
     var milkProduction by mutableDoubleStateOf(0.0)
@@ -30,37 +53,46 @@ class AnimalViewModel() : ViewModel() {
     fun updateVerticalShift(value: Double) { verticalShift = value }
     fun updateLactatingCows(value: Double) { lactatingCows = value }
 
-//    fun onEvent(event: AnimalEvent) {
-//        when(event) {
-//            is AnimalEvent.SaveAnimal -> {
-//                val pesoCorporal = state.
-//            }
-//        }
-//    }
+    init {
+        viewModelScope.launch {
+            animalRepository.getAnimal().collect { animal ->
+                println("*** animal get $animal")
+            }
+        }
+    }
 
     fun saveAnimal() {
-        println("*** Animal -> ${Animal(
-            pesoCorporal,
-            milkFatContent,
-            milkProduction,
-            pbFatMilk,
-            horizontalShift,
-            verticalShift,
-            lactatingCows
-        )}")
-//        viewModelScope.launch {
-//            val animalData = AnimalData(
-//                pesoCorporal = pesoCorporal,
-//                milkProduction = milkProduction,
-//                milkFatContent = milkFatContent,
-//                pbFatMilk = pbFatMilk,
-//                horizontalShift = horizontalShift,
-//                verticalShift = verticalShift,
-//                lactatingCows = lactatingCows
-//            )
-//            animalRepository.insertAnimal(animalData)
-//        }
+        viewModelScope.launch {
+            try {
+                animalRepository.saveAnimal(
+                    pesoCorporal = pesoCorporal,
+                    milkProduction = milkProduction,
+                    milkFatContent = milkFatContent,
+                    pbFatMilk = pbFatMilk,
+                    horizontalShift = horizontalShift,
+                    verticalShift = verticalShift,
+                    lactatingCows = lactatingCows
+                )
+
+                println("Animal salvo com sucesso!")
+                _uiState.update { it.copy(
+                    isSuccess = true,
+                    error = null
+                )}
+            } catch(error: Exception) {
+                _uiState.update {it.copy(
+                    error = "Error ao salvar dados $error.message",
+                    isSuccess = false
+                )}
+            }
+        }
     }
+
+    data class AnimalUiState(
+        val isSuccess: Boolean = false,
+        val error: String? = null,
+        val isSaving: Boolean = false
+    )
 }
 
 

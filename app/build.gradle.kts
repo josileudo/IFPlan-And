@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
     id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -54,6 +56,9 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.constraintlayout)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    ksp(libs.hilt.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.javax.inject)
     implementation(libs.androidx.room.runtime)
@@ -82,3 +87,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
+// Allow references to generated code
+//ksp {
+//    correctErrorTypes = true
+//}

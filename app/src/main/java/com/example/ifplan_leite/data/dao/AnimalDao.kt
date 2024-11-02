@@ -17,6 +17,7 @@ interface AnimalDao {
     @Transaction
     suspend fun insertOrUpdate(animal: Animal) {
         val exists = getAnimalSync() != null
+        println("*** exists $exists")
         if (exists) {
             update(animal)
         } else {

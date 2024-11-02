@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.ifplan_leite.model.TitleAndValue
@@ -29,7 +30,7 @@ import com.example.ifplan_leite.view_model.AnimalViewModel
 @Composable
 fun AnimalView(
     modifier: Modifier = Modifier,
-    animalViewModel: AnimalViewModel = viewModel(),
+    animalViewModel: AnimalViewModel = hiltViewModel(),
     navController: NavController?= null
 ){
     Card(modifier.fillMaxWidth()) {

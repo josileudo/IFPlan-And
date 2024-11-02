@@ -3,6 +3,8 @@ accompanistInsets = "0.30.0"
 accompanistSystemuicontroller = "0.32.0"
 agp = "8.6.0"
 composeCurrencytext = "1.0.1"
+hiltAndroid = "2.51.1"
+hiltNavigationCompose = "1.2.0"
 javaxInject = "1"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
@@ -25,9 +27,12 @@ constraintlayout = "2.2.0"
 accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanistInsets" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 compose-currencytext = { module = "com.github.Muratthekus:Compose-CurrencyText", version.ref = "composeCurrencytext" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
 javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

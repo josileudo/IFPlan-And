@@ -15,7 +15,9 @@ import com.example.ifplan_leite.Routes
 import com.example.ifplan_leite.ui.theme.IFPlanLeiteTheme
 import com.example.ifplan_leite.view.screens.animal.AnimalFormScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,8 +38,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
 
 @Composable
 private fun SetBarColor(color: Color) {

@@ -37,7 +37,6 @@ fun DashboardScreen(
             AnimalView(navController = navController)
         }
     }
-
 }
 
 @Preview(showBackground = true, showSystemUi = true, )

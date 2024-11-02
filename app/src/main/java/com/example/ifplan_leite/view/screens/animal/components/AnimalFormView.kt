@@ -8,12 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.ifplan_leite.view_model.AnimalViewModel
 
 @Composable
 fun AnimalFormView(
     modifier: Modifier = Modifier,
-    animalViewModel: AnimalViewModel,
+    animalViewModel: AnimalViewModel = hiltViewModel(),
     currencyInputViewModel: CurrencyInputViewModel,
 ) {
     Column(
@@ -23,9 +24,7 @@ fun AnimalFormView(
         CurrencyInputField(
             label = "Peso corporal (kg)",
             viewModel = currencyInputViewModel,
-            onValueChange = {
-                animalViewModel.updatePesoCorporal(it)
-            },
+            onValueChange = { animalViewModel.updatePesoCorporal(it) },
         )
 
         // PRODUÇÃO DE LEITE

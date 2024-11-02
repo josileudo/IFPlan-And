@@ -27,6 +27,8 @@ class AnimalRepository @Inject constructor(
             verticalShift = verticalShift,
             lactatingCows = lactatingCows
         )
+
+        println("*** animal $animal")
         animalDao.insertOrUpdate(animal)
     }
 
