@@ -1,4 +1,4 @@
-package com.example.ifplan_leite
+package com.example.ifplan_leite.view
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.ifplan_leite.R
 import com.example.ifplan_leite.ui.theme.IFPlanLeiteTheme
 
 @Composable
@@ -49,9 +49,6 @@ fun HomeScreen(
         Card(
             modifier,
             shape = RoundedCornerShape(16.dp),
-            colors = androidx.compose.material3.CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface
-            )
         ) {
             Text(
                 text = stringResource(R.string.welcome_ifplan_leite),
@@ -68,11 +65,9 @@ fun HomeScreen(
 
         Button(onClick = {
             navController?.navigate("dashboard_screen")
-        }, colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surface
-        )) {
+        }) {
             Text(
                 text = stringResource(R.string.start),
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 fontSize = MaterialTheme.typography.headlineMedium.fontSize,
                 fontWeight = FontWeight.Bold
             )
