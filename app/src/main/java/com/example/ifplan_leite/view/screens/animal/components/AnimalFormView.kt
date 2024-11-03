@@ -5,6 +5,7 @@ import CurrencyInputViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -13,76 +14,83 @@ import com.example.ifplan_leite.view_model.AnimalViewModel
 
 @Composable
 fun AnimalFormView(
-    modifier: Modifier = Modifier,
     animalViewModel: AnimalViewModel = hiltViewModel(),
     currencyInputViewModel: CurrencyInputViewModel,
 ) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-        // PESO CORPORAL
-        CurrencyInputField(
-            label = "Peso corporal (kg)",
-            viewModel = currencyInputViewModel,
-            onValueChange = { animalViewModel.updatePesoCorporal(it) },
-        )
 
-        // PRODUÇÃO DE LEITE
-        CurrencyInputField(
-            label = "Produção de leite (L/vaca/dia)",
-            viewModel = currencyInputViewModel,
-            onValueChange = {
-                animalViewModel.updateMilkProduction(it)
-            },
-        )
+    val animalState = animalViewModel.animalState.collectAsState()
 
-        // TEOR DE GORDURA
-        CurrencyInputField(
-            label = "Teor de gordura no leite (%)",
-            viewModel = currencyInputViewModel,
-            onValueChange = {
-                animalViewModel.updateMilkFatContent(it)
-            },
-        )
+    if(animalState.value.isSuccess) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
 
-        // TEOR DE PB NO LEITE
-        CurrencyInputField(
-            label = "Teor de PB no leite (%)",
-            viewModel = currencyInputViewModel,
-            onValueChange = {
-                animalViewModel.updatePbFatMilk(it)
-            },
-        )
+            // PESO CORPORAL
+            CurrencyInputField(
+                label = "Peso corporal (kg)",
+                onValueChange = { animalViewModel.updatePesoCorporal(it) },
+                value = animalState.value.pesoCorporal
+            )
 
-        // DESLOCAMENTO HORIZONTAL
-        CurrencyInputField(
-            label = "Deslocamento horizontal (m)",
-            viewModel = currencyInputViewModel,
-            onValueChange = {
-                animalViewModel.updateHorizontalShift(it)
-            },
-        )
+            // PRODUÇÃO DE LEITE
+            CurrencyInputField(
+                label = "Produção de leite (L/vaca/dia)",
+                value = animalState.value.milkProduction,
+                onValueChange = {
+                    animalViewModel.updateMilkProduction(it)
+                },
+            )
 
-        // DESLOCAMENTO VERTICAL
-        CurrencyInputField(
-            label = "Deslocamento vertical (m)",
-            viewModel = currencyInputViewModel,
-            onValueChange = {
-                animalViewModel.updateVerticalShift(it)
-            },
-        )
+            // TEOR DE GORDURA
+            CurrencyInputField(
+                label = "Teor de gordura no leite (%)",
+                value = animalState.value.milkFatContent,
+                onValueChange = {
+                    animalViewModel.updateMilkFatContent(it)
+                },
+            )
 
-        // VACAS EM LACTAÇÃO
-        CurrencyInputField(
-            label = "Vacas em lactação (%)",
-            viewModel = currencyInputViewModel,
-            onValueChange = { newValue ->
-                animalViewModel.updateLactatingCows(newValue)
-                println("*** $newValue")
-                println("*** ${animalViewModel.lactatingCows}")
-            }
-        )
+            // TEOR DE PB NO LEITE
+            CurrencyInputField(
+                label = "Teor de PB no leite (%)",
+                value = animalState.value.pbFatMilk,
+                onValueChange = {
+                    animalViewModel.updatePbFatMilk(it)
+                },
+            )
+
+            // DESLOCAMENTO HORIZONTAL
+            CurrencyInputField(
+                label = "Deslocamento horizontal (m)",
+                value = animalState.value.horizontalShift,
+                onValueChange = {
+                    animalViewModel.updateHorizontalShift(it)
+                },
+            )
+
+            // DESLOCAMENTO VERTICAL
+            CurrencyInputField(
+                label = "Deslocamento vertical (m)",
+                value = animalState.value.verticalShift,
+                onValueChange = {
+                    animalViewModel.updateVerticalShift(it)
+                },
+            )
+
+            // VACAS EM LACTAÇÃO
+            CurrencyInputField(
+                label = "Vacas em lactação (%)",
+                value = animalState.value.lactatingCows,
+                onValueChange = { newValue ->
+                    animalViewModel.updateLactatingCows(newValue)
+                    println("*** $newValue")
+                    println("*** ${animalState.value.lactatingCows}")
+                }
+            )
+        }
     }
+
+
 }
 
 @Preview(showSystemUi = true, showBackground = true)

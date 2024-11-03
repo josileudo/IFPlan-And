@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
 import com.ban.currencyamountinput.CurrencyAmountInputVisualTransformation
 import com.example.ifplan_leite.view.components.TextInputView
@@ -22,11 +21,15 @@ class CurrencyInputViewModel : ViewModel() {
 
 @Composable
 fun CurrencyInputField(
-    viewModel: CurrencyInputViewModel,
+    viewModel: CurrencyInputViewModel = CurrencyInputViewModel(),
     onValueChange: (Double) -> Unit,
-    label: String = ""
+    label: String = "",
+    value: Double = 0.0,
 ) {
-    var textFieldValue by remember { mutableStateOf("") }
+
+    var textFieldValue by remember { mutableStateOf(
+        formatDoubleToString(value)
+    ) }
 
     TextInputView(
         value = textFieldValue,
@@ -35,12 +38,19 @@ fun CurrencyInputField(
             textFieldValue = cleanValue
             val doubleValue = cleanValue.toDoubleOrNull()?.div(100) ?: 0.0
             viewModel.updateAmount(doubleValue)
+
             onValueChange(doubleValue)
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         label = label,
         visualTransformation = CurrencyAmountInputVisualTransformation(),
     )
+}
+
+private fun formatDoubleToString(value: Double): String {
+    if (value == 0.0) return "" // Retorna string vazia se for zero
+    val longValue = (value * 100).toLong()
+    return longValue.toString()
 }
 
 //@Preview(showBackground = true, showSystemUi = true)
