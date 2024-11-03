@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                 NavHost(navController = navController, startDestination = Routes.home) {
                     composable(Routes.home) { HomeScreen(navController) }
                     composable(Routes.dashboard) { DashboardScreen(navController = navController) }
-                    composable(Routes.animalInput) { AnimalFormScreen() }
+                    composable(Routes.animalInput) { AnimalFormScreen(navController = navController) }
                 }
             }
         }

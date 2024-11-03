@@ -6,22 +6,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.ifplan_leite.model.TitleAndValue
 import com.example.ifplan_leite.view.components.TitleValueComponent
@@ -33,6 +27,8 @@ fun AnimalView(
     animalViewModel: AnimalViewModel = hiltViewModel(),
     navController: NavController?= null
 ){
+    val animalState = animalViewModel.animalState.collectAsState().value
+
     Card(modifier.fillMaxWidth()) {
         // TODO: After create a component for it
         Column(modifier.padding(16.dp)) {
@@ -43,13 +39,13 @@ fun AnimalView(
                 modifier = modifier.padding(bottom = 8.dp)
             )
             val mockValues = listOf(
-                TitleAndValue("Peso corporal (kg)", "10,00"),
-                TitleAndValue("Produção de leite (L/vaca/dia)", "110,00"),
-                TitleAndValue("Teor de gordura no leite (%)", "110,00"),
-                TitleAndValue("Teor de PB no leite (%)", "110,00"),
-                TitleAndValue("Deslocamento horizontal (m)", "110,00"),
-                TitleAndValue("Deslocamento Vertical (m)", "110,00"),
-                TitleAndValue("Vacas em lactação (%)", "110,00"),
+                TitleAndValue("Peso corporal (kg)", animalState.pesoCorporal.toString()),
+                TitleAndValue("Produção de leite (L/vaca/dia)",animalState.milkProduction.toString()),
+                TitleAndValue("Teor de gordura no leite (%)", animalState.milkFatContent.toString()),
+                TitleAndValue("Teor de PB no leite (%)", animalState.pbFatMilk.toString()),
+                TitleAndValue("Deslocamento horizontal (m)", animalState.horizontalShift.toString()),
+                TitleAndValue("Deslocamento Vertical (m)", animalState.verticalShift.toString()),
+                TitleAndValue("Vacas em lactação (%)", animalState.lactatingCows.toString()),
             )
 
             for (value in mockValues) {
