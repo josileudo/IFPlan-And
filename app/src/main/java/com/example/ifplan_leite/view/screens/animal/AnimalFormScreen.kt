@@ -1,6 +1,5 @@
 package com.example.ifplan_leite.view.screens.animal
 
-import CurrencyInputViewModel
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -23,7 +22,7 @@ fun AnimalFormScreen(
     animalViewModel: AnimalViewModel = hiltViewModel(),
     navController: NavController? = null
 ) {
-    var animalState = animalViewModel.animalState.collectAsState().value
+    val animalState = animalViewModel.animalState.collectAsState().value
     Box(
         modifier
             .fillMaxSize()
@@ -40,10 +39,7 @@ fun AnimalFormScreen(
                 }
             }
         ) {
-            AnimalFormView(
-                animalViewModel = animalViewModel,
-                currencyInputViewModel = CurrencyInputViewModel()
-            )
+            AnimalFormView( animalViewModel = animalViewModel )
         }
     }
 }

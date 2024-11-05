@@ -1,22 +1,17 @@
 package com.example.ifplan_leite.view.screens.animal.components
 
 import CurrencyInputField
-import CurrencyInputViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.ifplan_leite.view_model.AnimalViewModel
 
 @Composable
-fun AnimalFormView(
-    animalViewModel: AnimalViewModel = hiltViewModel(),
-    currencyInputViewModel: CurrencyInputViewModel,
-) {
+fun AnimalFormView( animalViewModel: AnimalViewModel = hiltViewModel()) {
 
     val animalState = animalViewModel.animalState.collectAsState()
 
@@ -83,8 +78,6 @@ fun AnimalFormView(
                 value = animalState.value.lactatingCows,
                 onValueChange = { newValue ->
                     animalViewModel.updateLactatingCows(newValue)
-                    println("*** $newValue")
-                    println("*** ${animalState.value.lactatingCows}")
                 }
             )
         }
