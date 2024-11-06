@@ -5,16 +5,19 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.ifplan_leite.data.dao.AnimalDao
+import com.example.ifplan_leite.data.dao.AreaDao
 import com.example.ifplan_leite.data.entities.Animal
+import com.example.ifplan_leite.data.entities.Area
 
 @Database(
-    entities = [Animal::class],
+    entities = [Animal::class, Area::class],
     version = 1,
     exportSchema = true
 )
 
 abstract class IFPlanDatabase : RoomDatabase() {
     abstract fun animalDao(): AnimalDao
+    abstract fun areaDao(): AreaDao
 
     companion object {
         @Volatile

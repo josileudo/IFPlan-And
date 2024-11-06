@@ -3,7 +3,9 @@ package com.example.ifplan_leite.view.components
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,13 +30,12 @@ import com.example.ifplan_leite.R
 import com.example.ifplan_leite.ui.theme.IFPlanLeiteTheme
 import com.example.ifplan_leite.view_model.rememberImeState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormInputValuesComponent(
     modifier: Modifier = Modifier,
     formTitle: String = "",
     onSaveClick: () -> Unit = {},
-    content: @Composable () -> Unit,
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     val imeState = rememberImeState()
     val scrollState = rememberScrollState()
@@ -49,10 +50,10 @@ fun FormInputValuesComponent(
         modifier = modifier
             .fillMaxSize()
             .imePadding()
-            .verticalScroll(scrollState)
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.background)
             .padding(16.dp)
+            .verticalScroll(scrollState)
     ) {
         // Título do formulário
         BottomSheetTitle(title = formTitle)
