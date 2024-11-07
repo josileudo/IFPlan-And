@@ -1,4 +1,4 @@
-package com.example.ifplan_leite.view.screens.animal
+package com.example.ifplan_leite.view.screens.area
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
@@ -7,25 +7,31 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.ifplan_leite.R
 import com.example.ifplan_leite.Routes
 import com.example.ifplan_leite.view.components.FormInputValuesComponent
 import com.example.ifplan_leite.view.screens.animal.components.AnimalFormView
+import com.example.ifplan_leite.view.screens.area.components.AreaFormView
 import com.example.ifplan_leite.view_model.AnimalViewModel
+import com.example.ifplan_leite.view_model.AreaViewModel
 
 @Composable
-fun AnimalFormScreen(
+fun AreaFormScreen(
     modifier: Modifier = Modifier,
-    animalViewModel: AnimalViewModel = hiltViewModel(),
+    areaViewModel: AreaViewModel = hiltViewModel(),
     navController: NavController? = null
 ) {
-    val animalState = animalViewModel.animalState.collectAsState().value
+    val areaState = areaViewModel.areaState.collectAsState().value
+
+    LaunchedEffect(Unit) {
+        areaViewModel.loadAreaData()
+    }
+
     Box(
         modifier
             .fillMaxSize()
@@ -33,16 +39,16 @@ fun AnimalFormScreen(
             .background(MaterialTheme.colorScheme.background)
     ){
         FormInputValuesComponent(
-            formTitle = stringResource(R.string.animal),
+            formTitle = "Area",
             onSaveClick = {
-                animalViewModel.saveAnimal()
+                areaViewModel.saveArea()
 
-                if(animalState.isSuccess) {
+                if(areaState.isSuccess) {
                     navController?.navigate(Routes.dashboard)
                 }
             }
         ) {
-            AnimalFormView( animalViewModel = animalViewModel )
+            AreaFormView( areaViewModel = areaViewModel )
         }
     }
 }
@@ -50,5 +56,5 @@ fun AnimalFormScreen(
 @Preview(showSystemUi = true, showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun AnimalFormScreenPreview() {
-    AnimalFormScreen()
+    AreaFormScreen()
 }

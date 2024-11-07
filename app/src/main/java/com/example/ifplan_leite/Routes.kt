@@ -4,4 +4,5 @@ object Routes {
     var home = "home_screen"
     var dashboard = "dashboard_screen"
     var animalInput = "animal_input_screen"
+    var areaInput = "area_input_screen"
 }

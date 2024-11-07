@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ifplan_leite.R
+import com.example.ifplan_leite.Routes
 import com.example.ifplan_leite.ui.theme.IFPlanLeiteTheme
 
 @Composable
@@ -64,7 +65,7 @@ fun HomeScreen(
         Spacer(modifier)
 
         Button(onClick = {
-            navController?.navigate("dashboard_screen")
+            navController?.navigate(Routes.dashboard)
         }) {
             Text(
                 text = stringResource(R.string.start),

@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ifplan_leite.Routes
 import com.example.ifplan_leite.ui.theme.IFPlanLeiteTheme
 import com.example.ifplan_leite.view.screens.animal.AnimalFormScreen
+import com.example.ifplan_leite.view.screens.area.AreaFormScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,11 +30,12 @@ class MainActivity : ComponentActivity() {
                 navController = rememberNavController()
                 SetBarColor(MaterialTheme.colorScheme.background)
 
-                NavHost(navController = navController, startDestination = Routes.home) {
+                NavHost(navController = navController, startDestination = Routes.home, builder =  {
                     composable(Routes.home) { HomeScreen(navController) }
                     composable(Routes.dashboard) { DashboardScreen(navController = navController) }
                     composable(Routes.animalInput) { AnimalFormScreen(navController = navController) }
-                }
+                    composable(Routes.areaInput) { AreaFormScreen(navController = navController) }
+                })
             }
         }
     }
