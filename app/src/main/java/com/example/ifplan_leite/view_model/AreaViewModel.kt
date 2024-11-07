@@ -5,9 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.ifplan_leite.data.repository.AreaRepository
 import com.example.ifplan_leite.data.state.AreaState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,64 +20,81 @@ class AreaViewModel @Inject constructor(
 ) : ViewModel() {
     private val _areaState = MutableStateFlow(AreaState())
     val areaState: StateFlow<AreaState> = _areaState.asStateFlow()
+    var loadingJob: Job? = null
 
     fun updateArea(value: Double) { _areaState.update { it.copy( area = value ) }}
     fun updatePicketsNumber(value: Double) { _areaState.update { it.copy( picketsNumber = value ) } }
 
     init {
-        loadingAreaData()
+        loadAreaData()
     }
 
-    fun loadingAreaData() {
+    fun loadAreaData() {
+        loadingJob?.cancel()
         viewModelScope.launch {
             try {
-                areaRepository.getArea().collect { area ->
-                    area?.let { latestAnimal ->
+                _areaState.update { it.copy( isSaving = true) }
 
-                        _areaState.update { it.copy( isSaving = true) }
-                        _areaState.update { curState ->
-                            curState.copy(
-                                area = latestAnimal.area,
-                                picketsNumber = latestAnimal.picketsNumber,
+                areaRepository.getArea()
+                    .catch { error ->
+                        _areaState.update { it.copy(
+                            error = "Error ao carregar dados $error.message",
+                            isSuccess = false,
+                            isSaving = false
+                        ) }
+                    }
+                    .collect { area ->
+                        if(area != null) {
+                            _areaState.update { it.copy(
+                                    area = area.area,
+                                    picketsNumber = area.picketsNumber,
+                                    isSuccess = true,
+                                    error = null,
+                                    isSaving = false
+                                )
+                            }
+                        } else {
+                            _areaState.update { it.copy(
                                 isSuccess = true,
-                                error = null,
                                 isSaving = false
-                            )
+                            ) }
                         }
                     }
-                }
             } catch (error: Exception) {
                 _areaState.update { area ->
                     area.copy(
                         error = "Error ao carregar dados $error.message",
-                        isSuccess = false
+                        isSuccess = false,
+                        isSaving = false
                     )
                 }
             }
-
         }
     }
 
-    fun saveAnimal() {
+    fun saveArea() {
         viewModelScope.launch {
+            _areaState.update { it.copy( isSaving = true ) }
             try {
                 val currState = _areaState.value
-                areaRepository.saveArea(
-                    area = currState.area,
-                    picketsNumber = currState.picketsNumber,
-                )
+                with(currState) {
+                    areaRepository.saveArea(
+                        area = currState.area,
+                        picketsNumber = currState.picketsNumber,
+                    )
+                }
 
-                println("Area salvo com sucesso!")
-                _areaState.update { it.copy(
-                    isSuccess = true,
-                    error = null
-                )}
-
-                loadingAreaData()
+                _areaState.update {
+                    it.copy(
+                        isSuccess = true,
+                        error = null
+                    )
+                }
             } catch(error: Exception) {
                 _areaState.update {it.copy(
                     error = "Error ao salvar dados $error.message",
-                    isSuccess = false
+                    isSuccess = false,
+                    isSaving = false
                 )}
             }
         }

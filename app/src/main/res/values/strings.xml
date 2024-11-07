@@ -5,4 +5,10 @@
     <string name="logo_lapis_foundation">Logo LAPIS foundation</string>
     <string name="close_icon">CLose icon</string>
     <string name="save">Salvar</string>
+    <string name="edit">Editar</string>
+    <string name="asdasd">Editar</string>
+    <string name="animal">Animal</string>
+    <string name="body_weight_kg">Peso corporal (kg)</string>
+    <string name="milk_production_lvd">Produção de leite (L/vaca/dia)</string>
+    <string name="area">Área</string>
 </resources>

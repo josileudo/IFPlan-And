@@ -9,9 +9,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.ifplan_leite.R
+import com.example.ifplan_leite.Routes
 import com.example.ifplan_leite.view.components.FormInputValuesComponent
 import com.example.ifplan_leite.view.screens.animal.components.AnimalFormView
 import com.example.ifplan_leite.view_model.AnimalViewModel
@@ -30,12 +33,12 @@ fun AnimalFormScreen(
             .background(MaterialTheme.colorScheme.background)
     ){
         FormInputValuesComponent(
-            formTitle = "Animal",
+            formTitle = stringResource(R.string.animal),
             onSaveClick = {
                 animalViewModel.saveAnimal()
 
                 if(animalState.isSuccess) {
-                    navController?.navigate("dashboard_screen")
+                    navController?.navigate(Routes.dashboard)
                 }
             }
         ) {

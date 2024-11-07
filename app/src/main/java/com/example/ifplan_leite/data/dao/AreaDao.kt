@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AreaDao {
-    @Query("SELECT * FROM area_database WHERE id = 2")
+    @Query("SELECT * FROM area_database WHERE id = 1")
     fun getArea(): Flow<Area?>
 
     @Transaction
@@ -24,7 +24,7 @@ interface AreaDao {
         }
     }
 
-    @Query("SELECT * FROM area_database WHERE id = 2")
+    @Query("SELECT * FROM area_database WHERE id = 1")
     suspend fun getAreaSync(): Area?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
