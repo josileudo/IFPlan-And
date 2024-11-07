@@ -6,11 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.ifplan_leite.data.dao.AnimalDao
 import com.example.ifplan_leite.data.dao.AreaDao
+import com.example.ifplan_leite.data.dao.EconomyDao
 import com.example.ifplan_leite.data.entities.Animal
 import com.example.ifplan_leite.data.entities.Area
+import com.example.ifplan_leite.data.entities.Economy
 
 @Database(
-    entities = [Animal::class, Area::class],
+    entities = [Animal::class, Area::class, Economy::class],
     version = 1,
     exportSchema = true
 )
@@ -18,6 +20,7 @@ import com.example.ifplan_leite.data.entities.Area
 abstract class IFPlanDatabase : RoomDatabase() {
     abstract fun animalDao(): AnimalDao
     abstract fun areaDao(): AreaDao
+    abstract fun economyDao(): EconomyDao
 
     companion object {
         @Volatile

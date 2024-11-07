@@ -6,9 +6,12 @@
     <string name="close_icon">CLose icon</string>
     <string name="save">Salvar</string>
     <string name="edit">Editar</string>
-    <string name="asdasd">Editar</string>
     <string name="animal">Animal</string>
     <string name="body_weight_kg">Peso corporal (kg)</string>
     <string name="milk_production_lvd">Produção de leite (L/vaca/dia)</string>
     <string name="area">Área</string>
+    <string name="economy">Economia</string>
+    <string name="investment_per_liters">Investimentos por L (R$/L)</string>
+    <string name="family_income">Renda familiar (R$/mês)</string>
+    <string name="depreciation_rate">Taxa de depreciação (%a.a.)</string>
 </resources>
