@@ -16,6 +16,7 @@ import com.example.ifplan_leite.ui.theme.IFPlanLeiteTheme
 import com.example.ifplan_leite.view.screens.animal.AnimalFormScreen
 import com.example.ifplan_leite.view.screens.area.AreaFormScreen
 import com.example.ifplan_leite.view.screens.economy.EconomyFormScreen
+import com.example.ifplan_leite.view.screens.weatherAndSoil.WeatherAndSoilFormScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,6 +38,7 @@ class MainActivity : ComponentActivity() {
                     composable(Routes.animalInput) { AnimalFormScreen(navController = navController) }
                     composable(Routes.areaInput) { AreaFormScreen(navController = navController) }
                     composable(Routes.economyInput) { EconomyFormScreen(navController = navController) }
+                    composable(Routes.weatherAndSoilInput) { WeatherAndSoilFormScreen(navController = navController) }
                 })
             }
         }  }
