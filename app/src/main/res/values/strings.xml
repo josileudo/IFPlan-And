@@ -14,4 +14,12 @@
     <string name="investment_per_liters">Investimentos por L (R$/L)</string>
     <string name="family_income">Renda familiar (R$/mês)</string>
     <string name="depreciation_rate">Taxa de depreciação (%a.a.)</string>
+    <string name="precipitation">Precipitação (mm/dia)</string>
+    <string name="maxTemperature">Temperatura máxima (°C)</string>
+    <string name="minTemperature">Temperatura mínima (°C)</string>
+    <string name="relativeHumidity">Umidade relativa (%)</string>
+    <string name="velocityVents">Velocidade do Vento (m/s)</string>
+    <string name="nDosage">Dose de N (dose)</string>
+    <string name="otherAndWater">Água e outros usos (L/mês)</string>
+    <string name="weatherAndSoil">Clima e Solo</string>
 </resources>

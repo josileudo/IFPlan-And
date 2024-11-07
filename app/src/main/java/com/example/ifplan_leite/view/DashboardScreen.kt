@@ -20,6 +20,7 @@ import androidx.navigation.NavController
 import com.example.ifplan_leite.view.screens.animal.AnimalView
 import com.example.ifplan_leite.view.screens.area.AreaView
 import com.example.ifplan_leite.view.screens.economy.EconomyView
+import com.example.ifplan_leite.view.screens.weatherAndSoil.WeatherAndSoilView
 
 
 @Composable
@@ -39,6 +40,7 @@ fun DashboardScreen(
         ) {
             AreaView(navController = navController)
             EconomyView(navController = navController)
+            WeatherAndSoilView(navController = navController)
             AnimalView(navController = navController)
         }
     }
