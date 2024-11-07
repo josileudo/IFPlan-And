@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.ifplan_leite.view.screens.animal.AnimalView
 import com.example.ifplan_leite.view.screens.area.AreaView
+import com.example.ifplan_leite.view.screens.economy.EconomyView
 
 
 @Composable
@@ -34,10 +35,10 @@ fun DashboardScreen(
                 .background(MaterialTheme.colorScheme.background)
                 .padding(8.dp)
                 .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            // Animal
             AreaView(navController = navController)
+            EconomyView(navController = navController)
             AnimalView(navController = navController)
         }
     }
