@@ -22,4 +22,6 @@
     <string name="nDosage">Dose de N (dose)</string>
     <string name="otherAndWater">Água e outros usos (L/mês)</string>
     <string name="weatherAndSoil">Clima e Solo</string>
+    <string name="soil_water_plants_animal">Solo-Água-Planta-Animal</string>
+    <string name="sistems_costs_results_economic">Sistema-Custos-Resultado Econômico</string>
 </resources>

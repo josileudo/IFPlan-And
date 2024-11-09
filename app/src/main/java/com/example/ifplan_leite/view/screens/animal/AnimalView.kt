@@ -37,7 +37,8 @@ fun AnimalView(
         onClick = {
             navController?.navigate(Routes.animalInput)
         }
-    )}
+    )
+}
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable

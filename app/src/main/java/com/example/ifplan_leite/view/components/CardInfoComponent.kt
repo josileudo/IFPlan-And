@@ -24,6 +24,7 @@ fun CardInfoComponent (
     title: String = "",
     isLoading: Boolean = false,
     onClick: () -> Unit = {},
+    showButton: Boolean = true,
     error: String? = null,
     listItems:  List<TitleAndValue> = emptyList(),
 ) {
@@ -54,6 +55,7 @@ fun CardInfoComponent (
                         TitleValueComponent(item.title, item.value)
                     }
 
+                if(showButton) {
                     Box(
                         modifier
                             .fillMaxWidth()
@@ -65,6 +67,8 @@ fun CardInfoComponent (
                         }) {
                             Text(text = stringResource(R.string.edit), fontWeight = FontWeight.Bold)
                         }
+                    }
+
                     }
                 }
             }
