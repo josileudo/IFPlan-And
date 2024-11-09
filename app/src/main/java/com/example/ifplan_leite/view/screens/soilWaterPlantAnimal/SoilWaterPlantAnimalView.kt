@@ -1,17 +1,12 @@
 package com.example.ifplan_leite.view.screens.soilWaterPlantAnimal
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.ifplan_leite.R
-import com.example.ifplan_leite.Routes
 import com.example.ifplan_leite.model.TitleAndValue
 import com.example.ifplan_leite.ui.theme.IFPlanLeiteTheme
 import com.example.ifplan_leite.view.components.CardInfoComponent
-import com.example.ifplan_leite.view_model.AreaViewModel
 
 @Composable
 fun SoilWaterPlantAnimalView(){
