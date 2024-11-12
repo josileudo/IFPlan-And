@@ -68,7 +68,6 @@ fun CardInfoComponent (
                             Text(text = stringResource(R.string.edit), fontWeight = FontWeight.Bold)
                         }
                     }
-
                     }
                 }
             }

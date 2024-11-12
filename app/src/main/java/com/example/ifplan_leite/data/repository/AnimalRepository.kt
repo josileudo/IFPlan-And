@@ -28,11 +28,11 @@ class AnimalRepository @Inject constructor(
         loadAnimalData()
     }
 
-    fun getAnimal() = animalDao.getAnimal()
+    private fun getAnimal() = animalDao.getAnimal()
 
     fun loadAnimalData() {
-        loadingJob?.cancel() // Cancela job anterior se existir
-        loadingJob = coroutineScope.launch {
+        loadingJob?.cancel()
+        coroutineScope.launch {
             try {
                 _animalState.update { it.copy(isSaving = true) }
 
@@ -75,7 +75,7 @@ class AnimalRepository @Inject constructor(
             } catch (e: Exception) {
                 _animalState.update {
                     it.copy(
-                        error = "Erro inesperado: ${e.message}",
+                        error = "*** Erro inesperado: ${e.message}",
                         isSuccess = false,
                         isSaving = false
                     )

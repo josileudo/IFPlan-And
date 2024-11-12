@@ -34,8 +34,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.compose.IFPlanLeiteTheme
 import com.example.ifplan_leite.data.entities.WeatherAndSoil
-import com.example.ifplan_leite.ui.theme.IFPlanLeiteTheme
 import com.example.ifplan_leite.view.screens.animal.AnimalView
 import com.example.ifplan_leite.view.screens.area.AreaView
 import com.example.ifplan_leite.view.screens.economy.EconomyView

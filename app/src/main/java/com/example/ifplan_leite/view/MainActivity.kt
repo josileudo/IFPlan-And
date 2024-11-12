@@ -11,8 +11,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.compose.IFPlanLeiteTheme
 import com.example.ifplan_leite.Routes
-import com.example.ifplan_leite.ui.theme.IFPlanLeiteTheme
 import com.example.ifplan_leite.view.screens.animal.AnimalFormScreen
 import com.example.ifplan_leite.view.screens.area.AreaFormScreen
 import com.example.ifplan_leite.view.screens.economy.EconomyFormScreen
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            IFPlanLeiteTheme {
+            IFPlanLeiteTheme(dynamicColor = false) {
                 navController = rememberNavController()
                 SetBarColor(MaterialTheme.colorScheme.background)
 

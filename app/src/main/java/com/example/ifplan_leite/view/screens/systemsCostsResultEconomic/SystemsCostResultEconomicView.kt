@@ -1,27 +1,34 @@
 package com.example.ifplan_leite.view.screens.systemsCostsResultEconomic
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.compose.IFPlanLeiteTheme
 import com.example.ifplan_leite.R
 import com.example.ifplan_leite.model.TitleAndValue
-import com.example.ifplan_leite.ui.theme.IFPlanLeiteTheme
+import com.example.ifplan_leite.model.utils.formatterCurrency
 import com.example.ifplan_leite.view.components.CardInfoComponent
+import com.example.ifplan_leite.view_model.SimulateViewModel
 
 @Composable
-fun SystemsCostsResultEconomicView(){
-//    val areaState = areaViewModel.areaState.collectAsState().value
+fun SystemsCostsResultEconomicView(
+    simulateViewModel: SimulateViewModel = hiltViewModel()
+){
+    val simulateState = simulateViewModel.systemCostsResultEconomicState.collectAsState().value
+
     val items = listOf(
-        TitleAndValue("Produção diária (L/dia)", "0"),
-        TitleAndValue("Produção de leite (L/ha/dia)", "0"),
-        TitleAndValue("Produção de leite (L/ha/ano) ","0"),
-        TitleAndValue("Perda receita estresse (R$/ano)", "0"),
-        TitleAndValue("COE (R$/L)", "0"),
-        TitleAndValue("COT (R$/L)", "0"),
-        TitleAndValue("ML (R$/L)", "0"),
-        TitleAndValue("Receita por área (R$/ha/ano)", "0"),
-        TitleAndValue("TRCI (%a.a.)", "0"),
-        TitleAndValue("Payback (anos)", "0"),
+        TitleAndValue("Produção diária (L/dia)", formatterCurrency(simulateState.prodDiaria, 0)),
+        TitleAndValue("Produção de leite (L/ha/dia)", formatterCurrency(simulateState.prodLeiteDia, 0)),
+        TitleAndValue("Produção de leite (L/ha/ano) ",formatterCurrency(simulateState.prodLeiteAno, 0)),
+        TitleAndValue("Perda receita estresse (R$/ano)", formatterCurrency(simulateState.perdReceitaEstresse)),
+        TitleAndValue("COE (R$/L)", formatterCurrency(simulateState.coe)),
+        TitleAndValue("COT (R$/L)", formatterCurrency(simulateState.cot, 2)),
+        TitleAndValue("ML (R$/L)", formatterCurrency(simulateState.mlArea, 2)),
+        TitleAndValue("Receita por área (R$/ha/ano)", formatterCurrency(simulateState.receitaTotalAno,2 )),
+        TitleAndValue("TRCI (%a.a.)", formatterCurrency(simulateState.trci)),
+        TitleAndValue("Payback (anos)", formatterCurrency(simulateState.payback, 2)),
     )
 
     CardInfoComponent(

@@ -1,9 +1,10 @@
 package com.example.ifplan_leite.data.repository
 
-import androidx.lifecycle.viewModelScope
 import com.example.ifplan_leite.data.dao.AreaDao
 import com.example.ifplan_leite.data.entities.Area
 import com.example.ifplan_leite.data.state.AreaState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,16 +13,13 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 
 class AreaRepository @Inject constructor(
     private val areaDao: AreaDao
 ) {
     val _areaState = MutableStateFlow(AreaState())
     val areaState: StateFlow<AreaState> = _areaState.asStateFlow()
-    val loadingJob: Job?=null
+    val loadingJob: Job? = null
     val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     fun getArea() = areaDao.getArea()

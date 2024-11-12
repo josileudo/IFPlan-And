@@ -1,6 +1,5 @@
 package com.example.ifplan_leite.view.screens.economy.components
 
-import CurrencyInputField
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.ifplan_leite.R
+import com.example.ifplan_leite.model.utils.CurrencyInputField
 import com.example.ifplan_leite.view_model.EconomyViewModel
 
 @Composable

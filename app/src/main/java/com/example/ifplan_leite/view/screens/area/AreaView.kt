@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import com.example.ifplan_leite.R
 import com.example.ifplan_leite.Routes
 import com.example.ifplan_leite.model.TitleAndValue
+import com.example.ifplan_leite.model.utils.formatterCurrency
 import com.example.ifplan_leite.view.components.CardInfoComponent
 import com.example.ifplan_leite.view_model.AreaViewModel
 
@@ -19,8 +20,8 @@ fun AreaView(
 ){
     val areaState = areaViewModel.areaState.collectAsState().value
     val mockValues = listOf(
-        TitleAndValue("Area (ha)", areaState.area.toString()),
-        TitleAndValue("Números de piquetes (unid)", areaState.picketsNumber.toString()),
+        TitleAndValue(stringResource(R.string.area_ha), formatterCurrency(areaState.area, 1)),
+        TitleAndValue(stringResource(R.string.pickets_number), formatterCurrency(areaState.picketsNumber, 1)),
     )
 
     CardInfoComponent(

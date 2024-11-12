@@ -1,3 +1,5 @@
+package com.example.ifplan_leite.model.utils
+
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -9,6 +11,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.ViewModel
 import com.ban.currencyamountinput.CurrencyAmountInputVisualTransformation
 import com.example.ifplan_leite.view.components.TextInputView
+import kotlin.math.pow
 
 class CurrencyInputViewModel : ViewModel() {
     private val _amount = mutableStateOf(0.0)
@@ -25,10 +28,11 @@ fun CurrencyInputField(
     onValueChange: (Double) -> Unit,
     label: String = "",
     value: Double = 0.0,
+    decimalsNumber: Int = 2
 ) {
 
     var textFieldValue by remember { mutableStateOf(
-        formatDoubleToString(value)
+        FormatDoubleToString(value, decimalsNumber)
     ) }
 
     TextInputView(
@@ -36,30 +40,21 @@ fun CurrencyInputField(
         onValueChange = { newValue ->
             val cleanValue = newValue.filter { it.isDigit() }
             textFieldValue = cleanValue
-            val doubleValue = cleanValue.toDoubleOrNull()?.div(100) ?: 0.0
+            val factor = 10.0.pow(decimalsNumber.toDouble())
+            val doubleValue = cleanValue.toDoubleOrNull()?.div(factor) ?: 0.0
             viewModel.updateAmount(doubleValue)
-
             onValueChange(doubleValue)
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         label = label,
-        visualTransformation = CurrencyAmountInputVisualTransformation(),
+        visualTransformation = CurrencyAmountInputVisualTransformation(decimalsNumber = decimalsNumber),
     )
 }
 
-private fun formatDoubleToString(value: Double): String {
+fun FormatDoubleToString(value: Double, decimalsNumber: Int): String {
     if (value == 0.0) return "" // Retorna string vazia se for zero
-    val longValue = (value * 100).toLong()
+    val factor = 10.0.pow(decimalsNumber.toDouble())
+    val longValue = (factor * value).toLong()
+
     return longValue.toString()
 }
-
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun CurrencyInputFieldPreview(viewModel: CurrencyInputViewModel) {
-//    CurrencyInputField(
-//        viewModel = viewModel,
-//        onValueChange = { newValue ->
-//            println("New value: $newValue")
-//        }
-//    )
-//}
