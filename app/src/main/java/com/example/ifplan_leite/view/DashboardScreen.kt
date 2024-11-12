@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,7 +19,6 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,19 +33,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.compose.IFPlanLeiteTheme
-import com.example.ifplan_leite.data.entities.WeatherAndSoil
 import com.example.ifplan_leite.view.screens.animal.AnimalView
 import com.example.ifplan_leite.view.screens.area.AreaView
 import com.example.ifplan_leite.view.screens.economy.EconomyView
 import com.example.ifplan_leite.view.screens.soilWaterPlantAnimal.SoilWaterPlantAnimalView
 import com.example.ifplan_leite.view.screens.systemsCostsResultEconomic.SystemsCostsResultEconomicView
 import com.example.ifplan_leite.view.screens.weatherAndSoil.WeatherAndSoilView
-import com.example.ifplan_leite.view_model.AnimalViewModel
-import com.example.ifplan_leite.view_model.AreaViewModel
-import com.example.ifplan_leite.view_model.EconomyViewModel
 import com.example.ifplan_leite.view_model.SimulateViewModel
-import com.example.ifplan_leite.view_model.WeatherAndSoilViewModel
 import kotlinx.coroutines.launch
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
 fun DashboardScreen(
@@ -130,27 +124,39 @@ fun ResultsBottomSheet(
             modifier = Modifier.fillMaxHeight().padding(top = 8.dp)
         ) {
             val verticalScroll = rememberScrollState(0)
-            Column(Modifier.padding(horizontal = 12.dp).verticalScroll(verticalScroll),) {
+            Column(
+                Modifier
+                    .padding(horizontal = 12.dp)
+                    .padding(bottom=12.dp)
+                    .verticalScroll(verticalScroll)
+            ) {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     SoilWaterPlantAnimalView()
                     SystemsCostsResultEconomicView()
                 }
 
                 // TODO: Add a spacing
-
+                Spacer(Modifier.padding(vertical = 12.dp))
                 // MARK: Content result
-                Button(
-                    onClick = {
-                        scope.launch {
-                            sheetState.hide()
-                        }.invokeOnCompletion {
-                            if(!sheetState.isVisible) {
-                                onDismissRequest()
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Button(
+                        onClick = {
+                            scope.launch {
+                                sheetState.hide()
+                            }.invokeOnCompletion {
+                                if(!sheetState.isVisible) {
+                                    onDismissRequest()
+                                }
                             }
                         }
+                    ) {
+                        Text(text = "Fechar")
                     }
-                ) {
-                    Text(text = "Close")
                 }
             }
         }
