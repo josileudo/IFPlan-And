@@ -1,6 +1,5 @@
 package com.example.ifplan_leite.view.screens.weatherAndSoil.components
 
-import CurrencyInputField
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.ifplan_leite.R
+import com.example.ifplan_leite.model.utils.CurrencyInputField
 import com.example.ifplan_leite.view_model.WeatherAndSoilViewModel
 
 @Composable
@@ -34,6 +34,7 @@ fun WeatherAndSoilFormView( weatherAndSoilViewModel: WeatherAndSoilViewModel = h
             CurrencyInputField(
                 label = stringResource(R.string.maxTemperature),
                 value = weatherAndSoilState.value.maxTemperature,
+                decimalsNumber = 1,
                 onValueChange = { weatherAndSoilViewModel.updateMaxTemperature(it)   },
             )
 
@@ -41,6 +42,7 @@ fun WeatherAndSoilFormView( weatherAndSoilViewModel: WeatherAndSoilViewModel = h
             CurrencyInputField(
                 label = stringResource(R.string.minTemperature),
                 value = weatherAndSoilState.value.minTemperature,
+                decimalsNumber = 1,
                 onValueChange = { weatherAndSoilViewModel.updateMinTemperature(it) },
             )
 
@@ -48,6 +50,7 @@ fun WeatherAndSoilFormView( weatherAndSoilViewModel: WeatherAndSoilViewModel = h
             CurrencyInputField(
                 label = stringResource(R.string.relativeHumidity),
                 value = weatherAndSoilState.value.relativeHumidity,
+                decimalsNumber = 1,
                 onValueChange = { weatherAndSoilViewModel.updateRelativeHumidity(it) },
             )
 
@@ -55,6 +58,7 @@ fun WeatherAndSoilFormView( weatherAndSoilViewModel: WeatherAndSoilViewModel = h
             CurrencyInputField(
                 label = stringResource(R.string.velocityVents),
                 value = weatherAndSoilState.value.velocityVents,
+                decimalsNumber = 1,
                 onValueChange = { weatherAndSoilViewModel.updateVelocityVents(it) },
             )
 
@@ -62,6 +66,7 @@ fun WeatherAndSoilFormView( weatherAndSoilViewModel: WeatherAndSoilViewModel = h
             CurrencyInputField(
                 label = stringResource(R.string.nDosage),
                 value = weatherAndSoilState.value.nDosage,
+                decimalsNumber = 1,
                 onValueChange = { weatherAndSoilViewModel.updateNDosage(it) },
             )
 

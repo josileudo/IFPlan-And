@@ -6,23 +6,24 @@ import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import java.lang.Integer.max
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 class CurrencyAmountInputVisualTransformation(
     private val fixedCursorAtTheEnd: Boolean = true,
-    private val numberOfDecimals: Int = 2
+    private val decimalsNumber: Int = 2
 ) : VisualTransformation {
-
-    private val symbols = DecimalFormat().decimalFormatSymbols
+    private val symbols = DecimalFormatSymbols(Locale("pt", "BR"))
 
     override fun filter(text: AnnotatedString): TransformedText {
         val thousandsSeparator = symbols.groupingSeparator
         val decimalSeparator = symbols.decimalSeparator
         val zero = symbols.zeroDigit
 
-        val inputText = text.text
+        val inputText = text.text.replace(",", ".")
 
         val intPart = inputText
-            .dropLast(numberOfDecimals)
+            .dropLast(decimalsNumber)
             .reversed()
             .chunked(3)
             .joinToString(thousandsSeparator.toString())
@@ -31,9 +32,9 @@ class CurrencyAmountInputVisualTransformation(
                 zero.toString()
             }
 
-        val fractionPart = inputText.takeLast(numberOfDecimals).let {
-            if (it.length != numberOfDecimals) {
-                List(numberOfDecimals - it.length) {
+        val fractionPart = inputText.takeLast(decimalsNumber).let {
+            if (it.length != decimalsNumber) {
+                List(decimalsNumber - it.length) {
                     zero
                 }.joinToString("") + it
             } else {
@@ -58,7 +59,7 @@ class CurrencyAmountInputVisualTransformation(
             MovableCursorOffsetMapping(
                 unmaskedText = text.toString(),
                 maskedText = newText.toString(),
-                decimalDigits = numberOfDecimals
+                decimalDigits = decimalsNumber
             )
         }
 

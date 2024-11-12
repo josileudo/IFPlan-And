@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
@@ -34,7 +35,11 @@ fun TitleValueComponent(title: String, value: String, modifier: Modifier = Modif
             )
         }
 
-        HorizontalDivider(modifier.fillMaxWidth(), thickness = 3.dp)
+        HorizontalDivider(
+            modifier.fillMaxWidth(),
+            color = DividerDefaults.color,
+            thickness = 3.dp
+        )
     }
 }
 

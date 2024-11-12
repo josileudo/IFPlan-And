@@ -26,120 +26,27 @@ import javax.inject.Inject
 class AnimalViewModel @Inject constructor(
     private val animalRepository: AnimalRepository
 ) : ViewModel() {
-    private val _animalState = MutableStateFlow(AnimalState())
-    val animalState: StateFlow<AnimalState> = _animalState.asStateFlow()
-    var loadingJob: Job? = null
 
-    fun updatePesoCorporal(value: Double) { _animalState.update { it.copy( pesoCorporal = value ) }}
-    fun updateMilkProduction(value: Double) { _animalState.update { it.copy( milkProduction = value ) } }
-    fun updateMilkFatContent(value: Double) { _animalState.update { it.copy( milkFatContent = value ) } }
-    fun updatePbFatMilk(value: Double) { _animalState.update { it.copy( pbFatMilk = value ) } }
-    fun updateHorizontalShift(value: Double) { _animalState.update { it.copy( horizontalShift = value ) } }
-    fun updateVerticalShift(value: Double) { _animalState.update { it.copy( verticalShift = value ) } }
-    fun updateLactatingCows(value: Double) { _animalState.update { it.copy( lactatingCows = value ) } }
+    val animalState: StateFlow<AnimalState> = animalRepository.animalState
+
+    fun updatePesoCorporal(value: Double) { animalRepository._animalState.update { it.copy( pesoCorporal = value ) }}
+    fun updateMilkProduction(value: Double) { animalRepository._animalState.update { it.copy( milkProduction = value ) } }
+    fun updateMilkFatContent(value: Double) { animalRepository._animalState.update { it.copy( milkFatContent = value ) } }
+    fun updatePbFatMilk(value: Double) { animalRepository._animalState.update { it.copy( pbFatMilk = value ) } }
+    fun updateHorizontalShift(value: Double) { animalRepository._animalState.update { it.copy( horizontalShift = value ) } }
+    fun updateVerticalShift(value: Double) { animalRepository._animalState.update { it.copy( verticalShift = value ) } }
+    fun updateLactatingCows(value: Double) { animalRepository._animalState.update { it.copy( lactatingCows = value ) } }
 
     init {
         loadAnimalData()
     }
 
     fun loadAnimalData() {
-        loadingJob?.cancel() // Cancela job anterior se existir
-        loadingJob = viewModelScope.launch {
-            try {
-                Log.d("*** AnimalViewModel", "Starting to load animal data")
-                _animalState.update { it.copy(isSaving = true) }
-
-                animalRepository.getAnimal()
-                    .catch { error ->
-                        Log.e("*** AnimalViewModel", "Error collecting animal data", error)
-                        _animalState.update {
-                            it.copy(
-                                error = "*** Erro ao carregar dados: ${error.message}",
-                                isSuccess = false,
-                                isSaving = false
-                            )
-                        }
-                    }
-                    .collect { animal ->
-                        Log.d("AnimalViewModel", "Received animal data: $animal")
-                        if (animal != null) {
-                            _animalState.update {
-                                it.copy(
-                                    pesoCorporal = animal.pesoCorporal,
-                                    milkProduction = animal.milkProduction,
-                                    milkFatContent = animal.milkFatContent,
-                                    pbFatMilk = animal.pbFatMilk,
-                                    horizontalShift = animal.horizontalShift,
-                                    verticalShift = animal.verticalShift,
-                                    lactatingCows = animal.lactatingCows,
-                                    isSuccess = true,
-                                    error = null,
-                                    isSaving = false
-                                )
-                            }
-                        } else {
-                            // Se não há dados, inicializamos com valores padrão
-                            _animalState.update {
-                                it.copy(
-                                    isSuccess = true,
-                                    isSaving = false
-                                )
-                            }
-                        }
-                    }
-            } catch (e: Exception) {
-                Log.e("*** AnimalViewModel", "Error in loadAnimalData", e)
-                _animalState.update {
-                    it.copy(
-                        error = "Erro inesperado: ${e.message}",
-                        isSuccess = false,
-                        isSaving = false
-                    )
-                }
-            }
-        }
+        animalRepository.loadAnimalData()
     }
-
 
     fun saveAnimal() {
-        viewModelScope.launch {
-            try {
-                _animalState.update { it.copy(isSaving = true) }
-
-                with(_animalState.value) {
-                    animalRepository.saveAnimal(
-                        pesoCorporal = pesoCorporal,
-                        milkProduction = milkProduction,
-                        milkFatContent = milkFatContent,
-                        pbFatMilk = pbFatMilk,
-                        horizontalShift = horizontalShift,
-                        verticalShift = verticalShift,
-                        lactatingCows = lactatingCows
-                    )
-                }
-
-                _animalState.update {
-                    it.copy(
-                        isSuccess = true,
-                        isSaving = false
-                    )
-                }
-            } catch (e: Exception) {
-                Log.e("AnimalViewModel", "Error saving animal", e)
-                _animalState.update {
-                    it.copy(
-                        error = "Erro ao salvar: ${e.message}",
-                        isSuccess = false,
-                        isSaving = false
-                    )
-                }
-            }
-        }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        loadingJob?.cancel()
+       animalRepository.saveAnimal()
     }
 }
 

@@ -26,8 +26,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.compose.IFPlanLeiteTheme
 import com.example.ifplan_leite.R
-import com.example.ifplan_leite.ui.theme.IFPlanLeiteTheme
 import com.example.ifplan_leite.view_model.rememberImeState
 
 @Composable
