@@ -40,6 +40,7 @@ fun AnimalFormScreen(
     ){
         FormInputValuesComponent(
             formTitle = stringResource(R.string.animal),
+            onNavigateBack = { navController?.popBackStack() },
             onSaveClick = {
                 animalViewModel.saveAnimal()
 

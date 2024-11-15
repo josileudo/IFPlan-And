@@ -7,6 +7,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.ViewModel
 import com.ban.currencyamountinput.CurrencyAmountInputVisualTransformation
@@ -26,9 +28,11 @@ class CurrencyInputViewModel : ViewModel() {
 fun CurrencyInputField(
     viewModel: CurrencyInputViewModel = CurrencyInputViewModel(),
     onValueChange: (Double) -> Unit,
+    modifier: Modifier = Modifier,
     label: String = "",
     value: Double = 0.0,
-    decimalsNumber: Int = 2
+    decimalsNumber: Int = 2,
+    lastItem: Boolean = false
 ) {
 
     var textFieldValue by remember { mutableStateOf(
@@ -36,6 +40,7 @@ fun CurrencyInputField(
     ) }
 
     TextInputView(
+        modifier = modifier,
         value = textFieldValue,
         onValueChange = { newValue ->
             val cleanValue = newValue.filter { it.isDigit() }
@@ -45,7 +50,10 @@ fun CurrencyInputField(
             viewModel.updateAmount(doubleValue)
             onValueChange(doubleValue)
         },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+            imeAction = if(lastItem) ImeAction.Done else ImeAction.Next
+        ),
         label = label,
         visualTransformation = CurrencyAmountInputVisualTransformation(decimalsNumber = decimalsNumber),
     )

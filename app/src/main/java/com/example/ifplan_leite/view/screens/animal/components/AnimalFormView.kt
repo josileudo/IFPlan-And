@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.ifplan_leite.model.FormFieldModel
 import com.example.ifplan_leite.model.utils.CurrencyInputField
 import com.example.ifplan_leite.view_model.AnimalViewModel
 
@@ -17,80 +18,87 @@ fun AnimalFormView( animalViewModel: AnimalViewModel = hiltViewModel()) {
     val animalState = animalViewModel.animalState.collectAsState()
 
     if(animalState.value.isSuccess) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-
+        val formItems = listOf(
             // PESO CORPORAL
-            CurrencyInputField(
+            FormFieldModel(
                 label = "Peso corporal (kg)",
                 onValueChange = { animalViewModel.updatePesoCorporal(it) },
                 value = animalState.value.pesoCorporal
-            )
-
+            ),
             // PRODUÇÃO DE LEITE
-            CurrencyInputField(
+            FormFieldModel(
                 label = "Produção de leite (L/vaca/dia)",
                 value = animalState.value.milkProduction,
                 decimalsNumber = 1,
                 onValueChange = {
                     animalViewModel.updateMilkProduction(it)
                 },
-            )
-
-            // TEOR DE GORDURA
-            CurrencyInputField(
+            ),
+            // TEOR DE GORDURA NO LEITE
+            FormFieldModel(
                 label = "Teor de gordura no leite (%)",
                 value = animalState.value.milkFatContent,
                 decimalsNumber = 1,
                 onValueChange = {
                     animalViewModel.updateMilkFatContent(it)
-                },
-            )
-
+                }
+            ),
             // TEOR DE PB NO LEITE
-            CurrencyInputField(
+            FormFieldModel(
                 label = "Teor de PB no leite (%)",
                 value = animalState.value.pbFatMilk,
                 decimalsNumber = 1,
                 onValueChange = {
                     animalViewModel.updatePbFatMilk(it)
-                },
-            )
-
+                }
+            ),
             // DESLOCAMENTO HORIZONTAL
-            CurrencyInputField(
+            FormFieldModel(
                 label = "Deslocamento horizontal (m)",
                 value = animalState.value.horizontalShift,
                 onValueChange = {
                     animalViewModel.updateHorizontalShift(it)
-                },
-            )
-
+                }
+            ),
             // DESLOCAMENTO VERTICAL
-            CurrencyInputField(
+            FormFieldModel(
                 label = "Deslocamento vertical (m)",
                 value = animalState.value.verticalShift,
                 onValueChange = {
                     animalViewModel.updateVerticalShift(it)
-                },
-            )
-
+                }
+            ),
             // VACAS EM LACTAÇÃO
-            CurrencyInputField(
+            FormFieldModel(
                 label = "Vacas em lactação (%)",
                 value = animalState.value.lactatingCows,
                 decimalsNumber = 1,
-                onValueChange = { newValue ->
-                    animalViewModel.updateLactatingCows(newValue)
-                }
+                onValueChange = { animalViewModel.updateLactatingCows(it)  }
+            )
+        )
+
+        FieldsConfiguration(formItems)
+    }
+}
+
+@Composable
+private fun FieldsConfiguration( formItems: List<FormFieldModel>) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        for(item in formItems) {
+            CurrencyInputField(
+                label = item.label,
+                value = item.value,
+                decimalsNumber = item.decimalsNumber,
+                onValueChange = item.onValueChange,
+                lastItem = item.label == formItems.last().label
             )
         }
     }
-
-
 }
+
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable

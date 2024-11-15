@@ -40,6 +40,7 @@ fun WeatherAndSoilFormScreen(
     ){
         FormInputValuesComponent(
             formTitle = stringResource(R.string.weatherAndSoil),
+            onNavigateBack = { navController?.popBackStack() },
             onSaveClick = {
                 weatherAndSoilViewModel.saveWeatherAndSoil()
 

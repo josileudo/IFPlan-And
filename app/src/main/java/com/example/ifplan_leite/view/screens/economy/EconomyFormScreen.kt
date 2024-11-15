@@ -37,9 +37,10 @@ fun EconomyFormScreen(
             .fillMaxSize()
             .fillMaxHeight()
             .background(MaterialTheme.colorScheme.background)
-    ){
+    ) {
         FormInputValuesComponent(
             formTitle = stringResource(R.string.economy),
+            onNavigateBack = { navController?.popBackStack() },
             onSaveClick = {
                 economyViewModel.saveEconomy()
 

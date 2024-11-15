@@ -3,9 +3,12 @@ package com.example.ifplan_leite.view
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -28,18 +31,20 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            IFPlanLeiteTheme(dynamicColor = false) {
-                navController = rememberNavController()
-                SetBarColor(MaterialTheme.colorScheme.background)
+            Scaffold { innerPadding ->
+                IFPlanLeiteTheme(dynamicColor = false) {
+                    navController = rememberNavController()
+                    SetBarColor(MaterialTheme.colorScheme.background)
 
-                NavHost(navController = navController, startDestination = Routes.home, builder =  {
-                    composable(Routes.home) { HomeScreen(navController) }
-                    composable(Routes.dashboard) { DashboardScreen(navController = navController) }
-                    composable(Routes.animalInput) { AnimalFormScreen(navController = navController) }
-                    composable(Routes.areaInput) { AreaFormScreen(navController = navController) }
-                    composable(Routes.economyInput) { EconomyFormScreen(navController = navController) }
-                    composable(Routes.weatherAndSoilInput) { WeatherAndSoilFormScreen(navController = navController) }
-                })
+                    NavHost(modifier = Modifier.padding(innerPadding), navController = navController, startDestination = Routes.home, builder =  {
+                        composable(Routes.home) { HomeScreen(navController) }
+                        composable(Routes.dashboard) { DashboardScreen(navController = navController) }
+                        composable(Routes.animalInput) { AnimalFormScreen(navController = navController) }
+                        composable(Routes.areaInput) { AreaFormScreen(navController = navController) }
+                        composable(Routes.economyInput) { EconomyFormScreen(navController = navController) }
+                        composable(Routes.weatherAndSoilInput) { WeatherAndSoilFormScreen(navController = navController) }
+                    })
+                }
             }
         }  }
 }

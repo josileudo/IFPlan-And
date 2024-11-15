@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.ifplan_leite.R
+import com.example.ifplan_leite.model.FormFieldModel
 import com.example.ifplan_leite.model.utils.CurrencyInputField
 import com.example.ifplan_leite.view_model.EconomyViewModel
 
@@ -19,33 +20,51 @@ fun EconomyFormView( economyViewModel: EconomyViewModel = hiltViewModel()) {
     val economyState = economyViewModel.economyState.collectAsState()
 
     if(economyState.value.isSuccess) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
+        val formItems = listOf(
             // INVESTIMENTOS POR LITROS
-            CurrencyInputField(
+            FormFieldModel(
                 label = stringResource(R.string.investment_per_liters),
                 onValueChange = { economyViewModel.updateInvestmentsPerLiters(it) },
                 value = economyState.value.investmentsPerLiters,
-            )
+            ),
 
             // RENDA FAMILIAR
-            CurrencyInputField(
+            FormFieldModel(
                 label = stringResource(R.string.family_income),
                 value = economyState.value.familyIncome,
                 onValueChange = {
                     economyViewModel.updateFamilyIncome(it)
                 },
-            )
+            ),
 
             // TAXA DE DEPRECIAÇÃO
-            CurrencyInputField(
+            FormFieldModel(
                 label = stringResource(R.string.depreciation_rate),
                 value = economyState.value.depreciationRate,
                 onValueChange = {
-                    economyViewModel.updateDepreciationRate(it)
+                economyViewModel.updateDepreciationRate(it)
                 },
+            )
+        )
+
+        FieldsConfiguration(formItems)
+    }
+}
+
+// TODO: Check after if create a component for it.
+@Composable
+private fun FieldsConfiguration(formItems: List<FormFieldModel>) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        for (item in formItems) {
+            CurrencyInputField(
+                label = item.label,
+                value = item.value,
+                decimalsNumber = item.decimalsNumber,
+                onValueChange = item.onValueChange,
+                lastItem = item.label == formItems.last().label
             )
         }
     }

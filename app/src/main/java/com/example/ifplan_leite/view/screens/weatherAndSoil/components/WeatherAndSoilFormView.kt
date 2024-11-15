@@ -11,70 +11,88 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.ifplan_leite.R
+import com.example.ifplan_leite.model.FormFieldModel
 import com.example.ifplan_leite.model.utils.CurrencyInputField
 import com.example.ifplan_leite.view_model.WeatherAndSoilViewModel
 
 @Composable
-fun WeatherAndSoilFormView( weatherAndSoilViewModel: WeatherAndSoilViewModel = hiltViewModel()) {
+fun WeatherAndSoilFormView(weatherAndSoilViewModel: WeatherAndSoilViewModel = hiltViewModel()) {
     val weatherAndSoilState = weatherAndSoilViewModel.weatherAndSoilState.collectAsState()
 
-    if(weatherAndSoilState.value.isSuccess) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
+    if (weatherAndSoilState.value.isSuccess) {
+        val formItems = listOf(
             // PRECIPITAÇÃO
-            CurrencyInputField(
+            FormFieldModel(
                 label = stringResource(R.string.precipitation),
                 value = weatherAndSoilState.value.precipitation,
                 onValueChange = { weatherAndSoilViewModel.updatePrecipitation(it) },
-            )
+            ),
 
             // TEMPERATURA MÁXIMA
-            CurrencyInputField(
+            FormFieldModel(
                 label = stringResource(R.string.maxTemperature),
                 value = weatherAndSoilState.value.maxTemperature,
                 decimalsNumber = 1,
-                onValueChange = { weatherAndSoilViewModel.updateMaxTemperature(it)   },
-            )
+                onValueChange = { weatherAndSoilViewModel.updateMaxTemperature(it) },
+            ),
 
             // TEMPERATURA MÍNIMA
-            CurrencyInputField(
+            FormFieldModel(
                 label = stringResource(R.string.minTemperature),
                 value = weatherAndSoilState.value.minTemperature,
                 decimalsNumber = 1,
                 onValueChange = { weatherAndSoilViewModel.updateMinTemperature(it) },
-            )
+            ),
 
             // UMIDADE RELATIVA
-            CurrencyInputField(
+            FormFieldModel(
                 label = stringResource(R.string.relativeHumidity),
                 value = weatherAndSoilState.value.relativeHumidity,
                 decimalsNumber = 1,
                 onValueChange = { weatherAndSoilViewModel.updateRelativeHumidity(it) },
-            )
+            ),
 
             // VELOCIDADE DO VENTO
-            CurrencyInputField(
+            FormFieldModel(
                 label = stringResource(R.string.velocityVents),
                 value = weatherAndSoilState.value.velocityVents,
                 decimalsNumber = 1,
                 onValueChange = { weatherAndSoilViewModel.updateVelocityVents(it) },
-            )
+            ),
 
             // DOSE DE N
-            CurrencyInputField(
+            FormFieldModel(
                 label = stringResource(R.string.nDosage),
                 value = weatherAndSoilState.value.nDosage,
                 decimalsNumber = 1,
                 onValueChange = { weatherAndSoilViewModel.updateNDosage(it) },
-            )
+            ),
 
             // ÁGUA E OUTROS USOS
-            CurrencyInputField(
+            FormFieldModel(
                 label = stringResource(R.string.otherAndWater),
                 value = weatherAndSoilState.value.otherAndWater,
                 onValueChange = { weatherAndSoilViewModel.updateOtherAndWater(it) },
+            )
+        )
+
+        FieldsConfiguration(formItems)
+    }
+}
+
+@Composable
+private fun FieldsConfiguration(formItems: List<FormFieldModel>) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        for (item in formItems) {
+            CurrencyInputField(
+                label = item.label,
+                value = item.value,
+                decimalsNumber = item.decimalsNumber,
+                onValueChange = item.onValueChange,
+                lastItem = item.label == formItems.last().label
             )
         }
     }

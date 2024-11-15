@@ -16,6 +16,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -48,14 +49,11 @@ fun DashboardScreen(
     modifier: Modifier = Modifier,
     navController: NavController ?= null
 ) {
-
-
-    Box(modifier.fillMaxSize()) {
+    Surface (modifier.fillMaxSize()) {
         Column(
             modifier
                 .fillMaxWidth()
-                .fillMaxHeight()
-                .background(MaterialTheme.colorScheme.background)
+//                .background(MaterialTheme.colorScheme.background)
                 .padding(8.dp)
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(12.dp)

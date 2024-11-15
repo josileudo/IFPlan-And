@@ -2,6 +2,8 @@ package com.example.ifplan_leite.view.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.text.KeyboardActionScope
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -14,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 
@@ -26,6 +29,7 @@ fun TextInputView(
         label: String = "",
         visualTransformation: VisualTransformation = VisualTransformation.None,
         onValueChange: (String) -> Unit = {},
+        keyboardActions: KeyboardActions? = null,
 ) {
     var fieldPosition by remember { mutableStateOf(0) }
     OutlinedTextField(
