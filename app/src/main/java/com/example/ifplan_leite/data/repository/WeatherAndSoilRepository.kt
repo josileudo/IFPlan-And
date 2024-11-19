@@ -1,6 +1,5 @@
 package com.example.ifplan_leite.data.repository
 
-import androidx.lifecycle.viewModelScope
 import com.example.ifplan_leite.data.dao.WeatherAndSoilDao
 import com.example.ifplan_leite.data.entities.WeatherAndSoil
 import com.example.ifplan_leite.data.state.WeatherAndSoilState

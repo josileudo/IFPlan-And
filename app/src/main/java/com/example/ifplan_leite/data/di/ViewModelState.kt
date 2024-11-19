@@ -8,10 +8,6 @@ import com.example.ifplan_leite.data.state.AnimalState
 import com.example.ifplan_leite.data.state.AreaState
 import com.example.ifplan_leite.data.state.EconomyState
 import com.example.ifplan_leite.data.state.WeatherAndSoilState
-import com.example.ifplan_leite.view_model.AnimalViewModel
-import com.example.ifplan_leite.view_model.AreaViewModel
-import com.example.ifplan_leite.view_model.EconomyViewModel
-import com.example.ifplan_leite.view_model.WeatherAndSoilViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

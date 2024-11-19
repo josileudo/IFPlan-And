@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Theme.App.Splash" parent="Theme.SplashScreen">
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="toolbarStyle">@android:color/transparent</item>
         <item name="windowSplashScreenBackground">@color/teal_900</item>
         <item name="android:windowSplashScreenAnimationDuration">2000</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/avd_ifplan_leite</item>
-
         <item name="postSplashScreenTheme">@style/Theme.IFPlanLeite</item>
     </style>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.ifplan_leite.view
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,7 +12,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Surface
@@ -42,7 +40,6 @@ import com.example.ifplan_leite.view.screens.systemsCostsResultEconomic.SystemsC
 import com.example.ifplan_leite.view.screens.weatherAndSoil.WeatherAndSoilView
 import com.example.ifplan_leite.view_model.SimulateViewModel
 import kotlinx.coroutines.launch
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
 fun DashboardScreen(

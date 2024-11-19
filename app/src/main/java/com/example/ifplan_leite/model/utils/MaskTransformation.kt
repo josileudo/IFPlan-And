@@ -5,7 +5,6 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import java.lang.Integer.max
-import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
 

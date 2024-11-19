@@ -6,7 +6,6 @@ import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -17,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -79,6 +77,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             navController = rememberNavController()
+            setTheme(R.style.Theme_App_Splash)
             Scaffold { innerPadding ->
                 IFPlanLeiteTheme(dynamicColor = false) {
                     SetBarColor(MaterialTheme.colorScheme.background)

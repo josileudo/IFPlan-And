@@ -1,6 +1,5 @@
 package com.example.ifplan_leite.data.di
 
-import android.app.Application
 import android.content.Context
 import com.example.ifplan_leite.data.dao.AnimalDao
 import com.example.ifplan_leite.data.dao.AreaDao
