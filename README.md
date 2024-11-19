@@ -3,11 +3,10 @@
 ### O que é?
 
 IFPlan Leite é o aplicativo ideal para produtores de leite que desejam aprimorar a gestão da produção com inteligência e precisão. Desenvolvido especialmente para
-otimizar o planejamento e o uso dos recursos da propriedade, ele oferece uma interface prática e intuitiva, permitindo o controle eficiente de diversos fatores que
+otimizar o planejamento e o uso dos recursos da propriedade, ele oferece uma interface prática e intuitiva, permitindo o controle eficiente de diversos fatores que 
 impactam a produtividade e a rentabilidade.
 
 ### Funcionalidades
-
 Principais Funcionalidades:
 
 1. Simulações Precisas e Personalizadas;
