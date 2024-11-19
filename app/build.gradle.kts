@@ -7,14 +7,14 @@ plugins {
 }
 
 android {
-    namespace = "com.example.ifplan_leite"
+    namespace = "com.app.ifplan_leite"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.ifplan_leite"
+        applicationId = "com.app.ifplan_leite"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
+        versionCode = 2
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -89,8 +89,3 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.core.splashscreen)
 }
-
-// Allow references to generated code
-//ksp {
-//    correctErrorTypes = true
-//}
