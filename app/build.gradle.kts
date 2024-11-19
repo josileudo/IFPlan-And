@@ -7,14 +7,14 @@ plugins {
 }
 
 android {
-    namespace = "com.example.ifplan_leite"
+    namespace = "com.app.ifplan_leite"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.ifplan_leite"
+        applicationId = "com.app.ifplan_leite"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
+        versionCode = 3
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -54,6 +54,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.constraintlayout)
     ksp(libs.androidx.room.compiler)
     implementation(libs.hilt.android)
@@ -86,9 +87,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.androidx.core.splashscreen)
 }
-
-// Allow references to generated code
-//ksp {
-//    correctErrorTypes = true
-//}
