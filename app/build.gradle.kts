@@ -65,7 +65,6 @@ dependencies {
     implementation(libs.javax.inject)
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
-    implementation (libs.compose.currencytext)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

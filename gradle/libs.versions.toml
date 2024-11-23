@@ -2,7 +2,6 @@
 accompanistInsets = "0.30.0"
 accompanistSystemuicontroller = "0.32.0"
 agp = "8.6.0"
-composeCurrencytext = "1.0.1"
 coreSplashscreen = "1.0.1"
 firebaseBom = "33.6.0"
 hiltAndroid = "2.51.1"
@@ -33,7 +32,6 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
-compose-currencytext = { module = "com.github.Muratthekus:Compose-CurrencyText", version.ref = "composeCurrencytext" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
