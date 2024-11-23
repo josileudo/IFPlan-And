@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "498746125504",
+    "project_id": "ifplan-leite-74169",
+    "storage_bucket": "ifplan-leite-74169.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498746125504:android:8572d5a984960c56649125",
+        "android_client_info": {
+          "package_name": "com.app.ifplan_leite"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIzpuAs_MuMvX8FbpuHVVrNtRlwgqD8wo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
