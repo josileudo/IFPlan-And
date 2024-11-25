@@ -54,7 +54,7 @@ fun FieldsConfiguration(formItems: List<FormFieldModel>) {
         for(item in formItems) {
             CurrencyInputField(
                 modifier = Modifier.fillMaxWidth(),
-                label = stringResource(R.string.area_ha),
+                label =  item.label,
                 value = item.value,
                 decimalsNumber =  item.decimalsNumber,
                 onValueChange = item.onValueChange,
