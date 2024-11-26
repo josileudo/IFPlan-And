@@ -65,7 +65,7 @@ jobs:
         uses: r0adkll/upload-google-play@v1.1.3
         with:
           serviceAccountJson: service_account.json
-          packageName: nl.jovmit.com.app.ifplan_leite
+          packageName: com.app.ifplan_leite
           releaseFiles: app/build/outputs/bundle/release/app-release.aab
           track: 'internal'
           status: 'completed'
