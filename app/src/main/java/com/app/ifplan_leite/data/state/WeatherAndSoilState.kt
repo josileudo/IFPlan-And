@@ -8,6 +8,7 @@ data class WeatherAndSoilState (
     val velocityVents: Double = 0.0,
     val nDosage: Double = 0.0,
     val otherAndWater: Double = 0.0,
+    val waterAvailableToIrrigation: Double = 0.0,
     val error: String? = null,
     val isSaving: Boolean = false,
     val isSuccess: Boolean = false,

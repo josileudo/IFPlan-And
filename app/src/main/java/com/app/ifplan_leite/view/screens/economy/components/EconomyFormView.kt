@@ -26,12 +26,14 @@ fun EconomyFormView( economyViewModel: EconomyViewModel = hiltViewModel()) {
                 label = stringResource(R.string.investment_per_liters),
                 onValueChange = { economyViewModel.updateInvestmentsPerLiters(it) },
                 value = economyState.value.investmentsPerLiters,
+                decimalsNumber = 2
             ),
 
             // RENDA FAMILIAR
             FormFieldModel(
                 label = stringResource(R.string.family_income),
                 value = economyState.value.familyIncome,
+                decimalsNumber = 2,
                 onValueChange = {
                     economyViewModel.updateFamilyIncome(it)
                 },

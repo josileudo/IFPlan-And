@@ -29,7 +29,7 @@ fun TitleValueComponent(title: String, value: String, modifier: Modifier = Modif
                 fontWeight = FontWeight.SemiBold
             )
             Text(
-                text = value,
+                text = value.ifEmpty { "0.0" },
                 fontSize = MaterialTheme.typography.titleSmall.fontSize,
                 fontWeight = FontWeight.SemiBold
             )

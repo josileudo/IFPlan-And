@@ -26,6 +26,7 @@ fun WeatherAndSoilView(
         TitleAndValue(stringResource(R.string.velocityVents), weatherAndSoilState.velocityVents.toString()),
         TitleAndValue(stringResource(R.string.nDosage), weatherAndSoilState.nDosage.toString()),
         TitleAndValue(stringResource(R.string.otherAndWater), weatherAndSoilState.otherAndWater.toString()),
+        TitleAndValue(stringResource(R.string.agua_disp_p_irriga_o_m3_dia), weatherAndSoilState.waterAvailableToIrrigation.toString()),
     )
 
     CardInfoComponent(

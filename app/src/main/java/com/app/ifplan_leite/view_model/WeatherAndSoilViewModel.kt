@@ -19,6 +19,7 @@ class WeatherAndSoilViewModel @Inject constructor(
     fun updateVelocityVents(value: Double) { weatherAndSoilRepository._weatherAndSoilState.update { it.copy( velocityVents = value ) } }
     fun updateNDosage(value: Double) { weatherAndSoilRepository._weatherAndSoilState.update { it.copy( nDosage = value ) } }
     fun updateOtherAndWater(value: Double) { weatherAndSoilRepository._weatherAndSoilState.update { it.copy( otherAndWater = value ) } }
+    fun updateWaterAvailableToIrrigation(value: Double) { weatherAndSoilRepository._weatherAndSoilState.update { it.copy( waterAvailableToIrrigation = value ) } }
 
     init {
         loadWeatherAndSoilData()

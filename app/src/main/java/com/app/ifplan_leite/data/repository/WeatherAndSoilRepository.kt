@@ -53,6 +53,7 @@ class WeatherAndSoilRepository @Inject constructor(
                                 velocityVents = weatherAndSoil.velocityVents,
                                 nDosage = weatherAndSoil.nDosage,
                                 otherAndWater = weatherAndSoil.otherAndWater,
+                                waterAvailableToIrrigation = weatherAndSoil.waterAvailableToIrrigation,
                                 isSuccess = true,
                                 error = null,
                                 isSaving = false
@@ -91,7 +92,8 @@ class WeatherAndSoilRepository @Inject constructor(
                         relativeHumidity = relativeHumidity,
                         velocityVents = velocityVents,
                         nDosage = nDosage,
-                        otherAndWater = otherAndWater
+                        otherAndWater = otherAndWater,
+                        waterAvailableToIrrigation = waterAvailableToIrrigation
                     )
                     weatherAndSoilDao.insertOrUpdate(newValue)
 

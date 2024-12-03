@@ -26,4 +26,5 @@
     <string name="sistems_costs_results_economic">Sistema-Custos-Resultado Econômico</string>
     <string name="area_ha">Area (ha)</string>
     <string name="pickets_number">Números de piquetes (unid)</string>
+    <string name="agua_disp_p_irriga_o_m3_dia">Água disp p/ irrigação (m3/dia)</string>
 </resources>

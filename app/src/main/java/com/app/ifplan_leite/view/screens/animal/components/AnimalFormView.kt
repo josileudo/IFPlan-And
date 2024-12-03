@@ -23,6 +23,7 @@ fun AnimalFormView( animalViewModel: AnimalViewModel = hiltViewModel()) {
             FormFieldModel(
                 label = "Peso corporal (kg)",
                 onValueChange = { animalViewModel.updatePesoCorporal(it) },
+                decimalsNumber = 2,
                 value = animalState.value.pesoCorporal
             ),
             // PRODUÇÃO DE LEITE
