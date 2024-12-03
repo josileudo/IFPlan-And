@@ -24,7 +24,7 @@ fun SoilWaterPlantAnimalView(
         TitleAndValue("Taxa de lotação (vacas/ha)", formatterCurrency(state.taxaLotacao, 1)),
         TitleAndValue("ITU", formatterCurrency(state.itu, 1)),
         TitleAndValue("DPL (L/vaca/dia)", formatterCurrency(state.dpl, 1)),
-        TitleAndValue("Pegada hídrica (L H2O/L leite)", formatterCurrency(state.pegadaHidrica, 0)),
+        TitleAndValue("Pegada hídrica (L H2O/L leite)", formatterCurrency(state.pegadaHidrica, 2)),
     )
 
     CardInfoComponent(

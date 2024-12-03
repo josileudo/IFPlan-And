@@ -73,6 +73,14 @@ fun WeatherAndSoilFormView(weatherAndSoilViewModel: WeatherAndSoilViewModel = hi
                 label = stringResource(R.string.otherAndWater),
                 value = weatherAndSoilState.value.otherAndWater,
                 onValueChange = { weatherAndSoilViewModel.updateOtherAndWater(it) },
+            ),
+
+            // ÁGUA DISPONIVEL PARA IRRIGACAO (m3/dia)
+            FormFieldModel(
+                label = stringResource(R.string.agua_disp_p_irriga_o_m3_dia),
+                value = weatherAndSoilState.value.otherAndWater,
+                decimalsNumber = 2,
+                onValueChange = { weatherAndSoilViewModel.updateWaterAvailableToIrrigation(it) },
             )
         )
 

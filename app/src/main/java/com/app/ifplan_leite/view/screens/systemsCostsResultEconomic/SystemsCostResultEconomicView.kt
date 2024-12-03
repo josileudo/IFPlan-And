@@ -28,7 +28,7 @@ fun SystemsCostsResultEconomicView(
         TitleAndValue("ML (R$/L)", formatterCurrency(simulateState.mlArea, 2)),
         TitleAndValue("Receita por área (R$/ha/ano)", formatterCurrency(simulateState.receitaTotalAno,2 )),
         TitleAndValue("TRCI (%a.a.)", formatterCurrency(simulateState.trci)),
-        TitleAndValue("Payback (anos)", formatterCurrency(simulateState.payback, 2)),
+        TitleAndValue("Payback (anos)", formatterCurrency(simulateState.payback, 7)),
     )
 
     CardInfoComponent(

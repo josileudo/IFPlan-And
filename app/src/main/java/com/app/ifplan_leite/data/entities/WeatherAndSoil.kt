@@ -13,4 +13,5 @@ data class WeatherAndSoil(
         val velocityVents: Double = 0.0,
         val nDosage: Double = 0.0,
         val otherAndWater: Double = 0.0,
+        val waterAvailableToIrrigation: Double = 0.0
     )
