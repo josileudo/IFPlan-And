@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.app.compose.IFPlanLeiteTheme
 import com.app.ifplan_leite.R
-import com.app.ifplan_leite.Routes
+import com.app.ifplan_leite.ui.screen.route.Routes
 
 @Composable
 fun HomeScreen(
