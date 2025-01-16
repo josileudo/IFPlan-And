@@ -1,5 +1,6 @@
 package com.app.ifplan_leite.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,8 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetState
@@ -32,10 +36,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.app.compose.IFPlanLeiteTheme
+import com.app.ifplan_leite.ui.components.button.IFPlanButton
 import com.app.ifplan_leite.ui.components.navigation.TopBarConfig
 import com.app.ifplan_leite.ui.screen.animal.IfPlanAnimalScreen
 import com.app.ifplan_leite.ui.screen.area.AreaView
 import com.app.ifplan_leite.ui.screen.economy.EconomyView
+import com.app.ifplan_leite.ui.screen.route.BottomNavItem
+import com.app.ifplan_leite.ui.screen.route.Routes
 import com.app.ifplan_leite.ui.screen.soilWaterPlantAnimal.SoilWaterPlantAnimalView
 import com.app.ifplan_leite.ui.screen.systemsCostsResultEconomic.SystemsCostsResultEconomicView
 import com.app.ifplan_leite.ui.screen.weatherAndSoil.WeatherAndSoilView
@@ -54,16 +61,16 @@ fun DashboardScreen(
         Column(
             modifier
                 .fillMaxWidth()
-//                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             //MARK: Card to dashboard view
-            CardsOfDashboard(navController)
+            CardsOfDashboard(navController = navController)
 
             //MARK: Button to simulate result
-            SimulateButton()
+            SimulateButton(navController = navController)
         }
     }
 }
@@ -80,6 +87,7 @@ fun CardsOfDashboard(navController: NavController?) {
 @Composable
 fun SimulateButton(
     simulateViewModel: SimulateViewModel = hiltViewModel(),
+    navController: NavController? = null
 ) {
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -103,16 +111,19 @@ fun SimulateButton(
         sheetState = sheetState,
         onDismissRequest = {
             showBottomSheet = false
-        }
+        },
+        navController = navController
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ResultsBottomSheet(
+    modifier: Modifier = Modifier,
     isShow: Boolean = false,
     onDismissRequest: () -> Unit = {},
-    sheetState: SheetState
+    sheetState: SheetState,
+    navController: NavController? = null
 ) {
     val scope = rememberCoroutineScope()
 
@@ -143,19 +154,21 @@ fun ResultsBottomSheet(
                         .padding(bottom = 16.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Button(
-                        onClick = {
+                    IFPlanButton(
+                        modifier = modifier.fillMaxWidth(),
+                        iconRes = Icons.Rounded.Check,
+                        text = "Salvar simulação",
+                        onClick =  {
                             scope.launch {
                                 sheetState.hide()
                             }.invokeOnCompletion {
                                 if(!sheetState.isVisible) {
                                     onDismissRequest()
+                                    navController?.navigate(BottomNavItem.Home.route)
                                 }
                             }
                         }
-                    ) {
-                        Text(text = "Fechar")
-                    }
+                    )
                 }
             }
         }

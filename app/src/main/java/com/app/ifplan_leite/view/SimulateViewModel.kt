@@ -62,27 +62,6 @@ class SimulateViewModel @Inject constructor(
             val aguaUsos = weatherAndSoilState.value.otherAndWater
             val aguaDisponivelPorIrrigacao = weatherAndSoilState.value.waterAvailableToIrrigation
 
-            println("*** temperaturaMaxima $temperaturaMaxima")
-            println("*** temperaturaMinima $temperaturaMinima")
-            println("*** velocidadeVento $velocidadeVento")
-            println("*** precipitacao $precipitacao")
-            println("*** pesoCorporal $pesoCorporal")
-            println("*** producaoLeite $producaoLeite")
-            println("*** teorPB $teorPB")
-            println("*** teorGordura $teorGordura")
-            println("*** desloVertical $desloVertical")
-            println("*** desloHorizontal $desloHorizontal")
-            println("*** taxaDepreciacao $taxaDepreciacao")
-            println("*** umidadeRelativa $umidadeRelativa")
-            println("*** doseN $doseN")
-            println("*** area $area")
-            println("*** investimento $investimento")
-            println("*** rendaFamiliar $rendaFamiliar")
-            println("*** numeroPiquetes $numeroPiquetes")
-            println("*** vacasLactacao $vacasLactacao")
-            println("*** aguaUsos $aguaUsos")
-            println("*** aguaDisponivelPorIrrigacao $aguaDisponivelPorIrrigacao")
-
             // ETo (mm)
             val ETo = (((24.211 * temperaturaMaxima - 635.46) / 30.4) +
                     ((53.984 * velocidadeVento + 10.898) / 30.4)) / 2
@@ -242,9 +221,6 @@ class SimulateViewModel @Inject constructor(
                 payback = payback
             )
             updateSystemCostsResultEconomicState(newSystemCostsResultEconomic)
-
-            println("*** newSystemCostsResultEconomic $newSystemCostsResultEconomic")
-            println("*** newSoilWaterPlantAnimal $newSoilWaterPlantAnimal")
         }
     }
 }

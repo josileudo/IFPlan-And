@@ -42,7 +42,7 @@ fun IFPlanButton(
     val height = when(size) {
         "xm" -> 16.dp
         "sm" -> 22.dp
-        "md" -> 56.dp
+        "md" -> 48.dp
         else -> 66.dp
     }
     val textStyle = when(size) {
@@ -54,7 +54,7 @@ fun IFPlanButton(
     val iconSize = when(size) {
         "xm" -> 8.dp
         "sm" -> 12.dp
-        "md" -> 24.dp
+        "md" -> 20.dp
         else -> 32.dp
     }
 

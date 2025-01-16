@@ -41,7 +41,7 @@ fun MainScreen(navController: NavHostController) {
             startDestination = BottomNavItem.Home.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(BottomNavItem.Home.route) { HomeScreen(navigationToNewSimulation = {navController.navigate(Routes.dashboard)}) }
+            composable(BottomNavItem.Home.route) { HomeScreen(navigationToNewSimulation = { navController.navigate(Routes.dashboard) }) }
             composable(BottomNavItem.Profile.route) { ProfileScreen() }
             composable(BottomNavItem.Settings.route) { SettingsScreen() }
 
