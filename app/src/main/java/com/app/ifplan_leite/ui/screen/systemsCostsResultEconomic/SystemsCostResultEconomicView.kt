@@ -9,7 +9,7 @@ import com.app.compose.IFPlanLeiteTheme
 import com.app.ifplan_leite.R
 import com.app.ifplan_leite.core.data.model.TitleAndValue
 import com.app.ifplan_leite.core.data.model.utils.formatterCurrency
-import com.app.ifplan_leite.ui.components.card.CardInfoComponent
+import com.app.ifplan_leite.ui.components.card.IfPlanCardInfoResultContainer
 import com.app.ifplan_leite.view.SimulateViewModel
 
 @Composable
@@ -33,7 +33,7 @@ fun SystemsCostsResultEconomicView(
         TitleAndValue("Payback (anos)", formatterCurrency(simulateState.payback, 7)),
     )
 
-    CardInfoComponent(
+    IfPlanCardInfoResultContainer(
         title = stringResource(R.string.sistems_costs_results_economic),
         listItems = items,
         showButton = false

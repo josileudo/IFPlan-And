@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import com.app.ifplan_leite.R
 import com.app.ifplan_leite.ui.screen.route.Routes
 import com.app.ifplan_leite.core.data.model.TitleAndValue
-import com.app.ifplan_leite.ui.components.card.CardInfoComponent
+import com.app.ifplan_leite.ui.components.card.IfPlanCardInfoResultContainer
 import com.app.ifplan_leite.view.AnimalViewModel
 
 @Composable
@@ -29,7 +29,7 @@ fun IfPlanAnimalScreen(
         TitleAndValue("Vacas em lactação (%)", animalState.lactatingCows.toString()),
     )
 
-    CardInfoComponent(
+    IfPlanCardInfoResultContainer(
         title = stringResource(R.string.animal),
         isLoading = animalState.isSaving,
         error = animalState.error,

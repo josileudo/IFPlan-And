@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import com.app.ifplan_leite.R
 import com.app.ifplan_leite.ui.screen.route.Routes
 import com.app.ifplan_leite.core.data.model.TitleAndValue
-import com.app.ifplan_leite.ui.components.card.CardInfoComponent
+import com.app.ifplan_leite.ui.components.card.IfPlanCardInfoResultContainer
 import com.app.ifplan_leite.view.WeatherAndSoilViewModel
 
 @Composable
@@ -29,7 +29,7 @@ fun WeatherAndSoilView(
         TitleAndValue(stringResource(R.string.agua_disp_p_irriga_o_m3_dia), weatherAndSoilState.waterAvailableToIrrigation.toString()),
     )
 
-    CardInfoComponent(
+    IfPlanCardInfoResultContainer(
         title = stringResource(R.string.weatherAndSoil),
         isLoading = weatherAndSoilState.isSaving,
         error = weatherAndSoilState.error,

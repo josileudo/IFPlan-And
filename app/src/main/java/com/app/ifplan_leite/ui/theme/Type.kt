@@ -1,13 +1,16 @@
 package com.app.ui.theme
 
 import androidx.compose.material3.Typography
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
-import androidx.compose.ui.text.googlefonts.Font
-import com.app.compose.primaryDark
-import com.app.compose.primaryLight
+import androidx.compose.ui.unit.sp
+import com.app.compose.GreenBase
 import com.app.ifplan_leite.R
+
+private val activatedPreview = true
 
 val provider = GoogleFont.Provider(
     providerAuthority = "com.google.android.gms.fonts",
@@ -15,44 +18,57 @@ val provider = GoogleFont.Provider(
     certificates = R.array.com_google_android_gms_fonts_certs
 )
 
-val bodyFontFamily = FontFamily(
-    Font(
-        googleFont = GoogleFont("Nunito"),
-        fontProvider = provider,
-    )
-)
-
-val displayFontFamily = FontFamily(
-    Font(
-        googleFont = GoogleFont("Nunito"),
-        fontProvider = provider,
-    )
+private val rubikFontFamily = FontFamily(
+    Font(R.font.rubik_regular, FontWeight.Normal),
+    Font(R.font.rubik_medium, FontWeight.Medium),
+    Font(R.font.rubik_semibold, FontWeight.SemiBold),
+    Font(R.font.rubik_bold, FontWeight.Bold)
 )
 
 // Default Material 3 typography values
-val baseline = Typography()
-
-fun appTypography(isDark: Boolean): Typography {
-    return Typography(
-        displayLarge = baseline.displayLarge.copy(fontFamily = displayFontFamily),
-        displayMedium = baseline.displayMedium.copy(fontFamily = displayFontFamily),
-        displaySmall = baseline.displaySmall.copy(fontFamily = displayFontFamily),
-        headlineLarge = baseline.headlineLarge.copy(
-            fontFamily = displayFontFamily,
-            color = if (isDark) primaryDark else primaryLight
-        ),
-        headlineMedium = baseline.headlineMedium.copy(fontFamily = displayFontFamily),
-        headlineSmall = baseline.headlineSmall.copy(fontFamily = displayFontFamily),
-        titleLarge = baseline.titleLarge.copy(fontFamily = displayFontFamily),
-        titleMedium = baseline.titleMedium.copy(fontFamily = displayFontFamily),
-        titleSmall = baseline.titleSmall.copy(fontFamily = displayFontFamily),
-        bodyLarge = baseline.bodyLarge.copy(fontFamily = bodyFontFamily),
-        bodyMedium = baseline.bodyMedium.copy(fontFamily = bodyFontFamily),
-        bodySmall = baseline.bodySmall.copy(fontFamily = bodyFontFamily),
-        labelLarge = baseline.labelLarge.copy(fontFamily = bodyFontFamily),
-        labelMedium = baseline.labelMedium.copy(fontFamily = bodyFontFamily),
-        labelSmall = baseline.labelSmall.copy(fontFamily = bodyFontFamily),
+val Typography = Typography(
+    headlineLarge = TextStyle(
+        fontFamily = if (activatedPreview) FontFamily.Default else rubikFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 24.sp,
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = if (activatedPreview) FontFamily.Default else rubikFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 20.sp,
+    ),
+    headlineSmall = TextStyle(
+        fontFamily = if (activatedPreview) FontFamily.Default else rubikFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
+        lineHeight = 0.sp,
+        letterSpacing = 0.sp
+    ),
+    bodyLarge = TextStyle(
+        fontFamily = if (activatedPreview) FontFamily.Default else rubikFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+    ),
+    titleLarge = TextStyle(
+        fontFamily = if (activatedPreview) FontFamily.Default else rubikFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 22.sp,
+        lineHeight = 28.sp,
+        letterSpacing = 0.sp
+    ),
+    labelSmall = TextStyle(
+        fontFamily = if (activatedPreview) FontFamily.Default else rubikFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 11.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.5.sp
+    ),
+    labelLarge = TextStyle(
+        fontFamily = if (activatedPreview) FontFamily.Default else rubikFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
     )
-}
+)
+
 
 

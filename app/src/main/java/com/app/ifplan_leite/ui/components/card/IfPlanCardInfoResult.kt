@@ -16,13 +16,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun IfPlanInfoCard(title: String, value: String, modifier: Modifier = Modifier) {
+fun IfPlanCardInfoResult(title: String, value: String, modifier: Modifier = Modifier) {
     Column {
         Row(
-            modifier.fillMaxWidth().padding(0.dp,8.dp),
+            modifier.fillMaxWidth().padding(0.dp, 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
-            ){
-            // TODO: After Create a func to use it
+            ) {
             Text(
                 text = title,
                 fontSize = MaterialTheme.typography.titleSmall.fontSize,
@@ -45,6 +44,6 @@ fun IfPlanInfoCard(title: String, value: String, modifier: Modifier = Modifier) 
 
 @Preview(showBackground = true)
 @Composable
-fun IfPlanInfoCardPreview() {
-    IfPlanInfoCard("Title", "100")
+fun IfPlanCardInfoResultPreview() {
+    IfPlanCardInfoResult("Title", "100")
 }

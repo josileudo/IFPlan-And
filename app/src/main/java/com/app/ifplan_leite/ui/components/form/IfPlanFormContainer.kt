@@ -12,26 +12,18 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.app.compose.IFPlanLeiteTheme
 import com.app.ifplan_leite.R
-import com.app.ifplan_leite.view.rememberImeState
+import com.app.ifplan_leite.ui.components.navigation.TopBarConfig
 
 @Composable
 fun IfPlanFormContainer(
@@ -41,7 +33,6 @@ fun IfPlanFormContainer(
     onNavigateBack: () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
-    val imeState = rememberImeState()
     val scrollState = rememberScrollState()
 
     Scaffold(
@@ -79,36 +70,7 @@ fun IfPlanFormContainer(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun TopBarConfig(formTitle: String, onNavigateBack: () -> Unit) {
-    TopAppBar(
-        title = { BottomSheetTitle(title = formTitle) },
-        navigationIcon = {
-            IconButton(onClick = onNavigateBack) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Voltar"
-                )
-            }
-        }
-    )
-}
 
-@Composable
-private fun BottomSheetTitle(modifier: Modifier = Modifier, title: String) {
-    Box(
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(
-            text = title,
-            color = MaterialTheme.typography.headlineLarge.color,
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = MaterialTheme.typography.headlineSmall.fontSize,
-        )
-    }
-}
 
 @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable

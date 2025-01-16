@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 data class BottomNavItem(
     var title: String,
-    var route: String,
+    var route: Any,
     var selectedIcon: ImageVector,
     var unselectedIcon: ImageVector,
 )

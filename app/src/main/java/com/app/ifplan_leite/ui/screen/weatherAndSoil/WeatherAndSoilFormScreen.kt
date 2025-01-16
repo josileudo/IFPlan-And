@@ -45,7 +45,7 @@ fun WeatherAndSoilFormScreen(
                 weatherAndSoilViewModel.saveWeatherAndSoil()
 
                 if(weatherAndSoilState.isSuccess) {
-                    navController?.navigate(Routes.dashboard)
+//                    navController?.navigate(Routes.dashboard)
                 }
             }
         ) {

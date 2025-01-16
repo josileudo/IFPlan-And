@@ -11,10 +11,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
@@ -35,6 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.app.compose.IFPlanLeiteTheme
+import com.app.ifplan_leite.ui.components.navigation.TopBarConfig
 import com.app.ifplan_leite.ui.screen.animal.IfPlanAnimalScreen
 import com.app.ifplan_leite.ui.screen.area.AreaView
 import com.app.ifplan_leite.ui.screen.economy.EconomyView
@@ -46,27 +44,12 @@ import kotlinx.coroutines.launch
 @Composable
 fun DashboardScreen(
     modifier: Modifier = Modifier,
-    navController: NavController ?= null
+    navController: NavController? = null
 ) {
     var selectedIndex by rememberSaveable { mutableStateOf(0) }
 
-    Scaffold (
-        bottomBar = {
-            NavigationBar {
-                bottomNavItems.forEachIndexed { index, item ->
-                    NavigationBarItem(
-                        selected = index == selectedIndex,
-                        onClick = {
-                            selectedIndex = index
-//                            navController.navigate()
-                                  },
-                        icon = {
-                            Icon(if(selectedIndex == index) item.selectedIcon else item.unselectedIcon, contentDescription = item.title)
-                        }
-                    )
-                }
-            }
-        }
+    Scaffold(
+        topBar = { TopBarConfig("Criar nova simulação", onNavigateBack = { navController?.popBackStack() },) }
     ) { innerPadding ->
         Column(
             modifier

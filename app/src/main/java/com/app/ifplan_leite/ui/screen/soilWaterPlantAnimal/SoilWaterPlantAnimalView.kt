@@ -9,7 +9,7 @@ import com.app.compose.IFPlanLeiteTheme
 import com.app.ifplan_leite.R
 import com.app.ifplan_leite.core.data.model.TitleAndValue
 import com.app.ifplan_leite.core.data.model.utils.formatterCurrency
-import com.app.ifplan_leite.ui.components.card.CardInfoComponent
+import com.app.ifplan_leite.ui.components.card.IfPlanCardInfoResultContainer
 import com.app.ifplan_leite.view.SimulateViewModel
 
 @Composable
@@ -27,7 +27,7 @@ fun SoilWaterPlantAnimalView(
         TitleAndValue("Pegada hídrica (L H2O/L leite)", formatterCurrency(state.pegadaHidrica, 2)),
     )
 
-    CardInfoComponent(
+    IfPlanCardInfoResultContainer(
         title = stringResource(R.string.soil_water_plants_animal),
         listItems = items,
         showButton = false

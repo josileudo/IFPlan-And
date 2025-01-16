@@ -19,7 +19,7 @@ import com.app.ifplan_leite.R
 import com.app.ifplan_leite.core.data.model.TitleAndValue
 
 @Composable
-fun CardInfoComponent (
+fun IfPlanCardInfoResultContainer (
     modifier: Modifier = Modifier,
     title: String = "",
     isLoading: Boolean = false,
@@ -43,7 +43,6 @@ fun CardInfoComponent (
                         modifier.align(Alignment.CenterHorizontally)
                     )
                 }
-
                 error != null -> {
                     Text(
                         text = error,
@@ -52,22 +51,22 @@ fun CardInfoComponent (
                     )
                 } else -> {
                     for (item in listItems) {
-                        IfPlanInfoCard(item.title, item.value)
+                        IfPlanCardInfoResult(item.title, item.value)
                     }
 
-                if(showButton) {
-                    Box(
-                        modifier
-                            .fillMaxWidth()
-                            .padding(top = 16.dp),
-                        contentAlignment = Alignment.CenterEnd
-                    ) {
-                        TextButton (onClick = {
-                            onClick()
-                        }) {
-                            Text(text = stringResource(R.string.edit), fontWeight = FontWeight.Bold)
+                    if(showButton) {
+                        Box(
+                            modifier
+                                .fillMaxWidth()
+                                .padding(top = 16.dp),
+                            contentAlignment = Alignment.CenterEnd
+                        ) {
+                            TextButton (onClick = {
+                                onClick()
+                            }) {
+                                Text(text = stringResource(R.string.edit), fontWeight = FontWeight.Bold)
+                            }
                         }
-                    }
                     }
                 }
             }

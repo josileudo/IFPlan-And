@@ -41,7 +41,7 @@ fun AreaFormScreen(
                 areaViewModel.saveArea()
 
                 if(areaState.isSuccess) {
-                    navController?.navigate(Routes.dashboard)
+//                    navController?.navigate(Routes.dashboard)
                 }
             }
         ) {

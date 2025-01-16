@@ -25,6 +25,7 @@ object ViewModelState {
     fun provideAreaStateFlow(areaRepository: AreaRepository): StateFlow<AreaState> {
         return areaRepository.areaState
     }
+
     @Provides
     @ViewModelScoped
     fun provideAnimalState(animalRepository: AnimalRepository): StateFlow<AnimalState> {

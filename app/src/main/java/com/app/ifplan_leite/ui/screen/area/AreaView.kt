@@ -10,7 +10,7 @@ import com.app.ifplan_leite.R
 import com.app.ifplan_leite.ui.screen.route.Routes
 import com.app.ifplan_leite.core.data.model.TitleAndValue
 import com.app.ifplan_leite.core.data.model.utils.formatterCurrency
-import com.app.ifplan_leite.ui.components.card.CardInfoComponent
+import com.app.ifplan_leite.ui.components.card.IfPlanCardInfoResultContainer
 import com.app.ifplan_leite.view.AreaViewModel
 
 @Composable
@@ -24,7 +24,7 @@ fun AreaView(
         TitleAndValue(stringResource(R.string.pickets_number), formatterCurrency(areaState.picketsNumber, 1)),
     )
 
-    CardInfoComponent(
+    IfPlanCardInfoResultContainer(
         title = stringResource(R.string.area),
         isLoading = areaState.isSaving,
         error = areaState.error,

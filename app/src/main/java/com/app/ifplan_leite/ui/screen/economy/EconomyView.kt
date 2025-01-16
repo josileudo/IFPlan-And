@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import com.app.ifplan_leite.R
 import com.app.ifplan_leite.ui.screen.route.Routes
 import com.app.ifplan_leite.core.data.model.TitleAndValue
-import com.app.ifplan_leite.ui.components.card.CardInfoComponent
+import com.app.ifplan_leite.ui.components.card.IfPlanCardInfoResultContainer
 import com.app.ifplan_leite.view.EconomyViewModel
 
 @Composable
@@ -24,7 +24,7 @@ fun EconomyView(
         TitleAndValue(stringResource(R.string.depreciation_rate), economyState.depreciationRate.toString()),
     )
 
-    CardInfoComponent(
+    IfPlanCardInfoResultContainer(
         title = stringResource(R.string.economy),
         isLoading = economyState.isSaving,
         error = economyState.error,

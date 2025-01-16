@@ -45,7 +45,7 @@ fun EconomyFormScreen(
                 economyViewModel.saveEconomy()
 
                 if(economyState.isSuccess) {
-                    navController?.navigate(Routes.dashboard)
+//                    navController?.navigate(Routes.dashboard)
                 }
             }
         ) {

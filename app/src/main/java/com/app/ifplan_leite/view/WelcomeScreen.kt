@@ -31,8 +31,8 @@ import com.app.ifplan_leite.R
 import com.app.ifplan_leite.ui.screen.route.Routes
 
 @Composable
-fun HomeScreen(
-    navController: NavController ?= null,
+fun WelcomeScreen(
+    onNavigateToDashboard: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -64,9 +64,7 @@ fun HomeScreen(
 
         Spacer(modifier)
 
-        Button(onClick = {
-            navController?.navigate(Routes.dashboard)
-        }) {
+        Button(onClick = { onNavigateToDashboard() }) {
             Text(
                 text = stringResource(R.string.start),
                 fontSize = MaterialTheme.typography.headlineMedium.fontSize,
@@ -92,8 +90,8 @@ fun HomeScreen(
     name = "Default-system"
 )
 @Composable
-fun HomeScreenPreview() {
+fun WelcomeScreenPreview() {
     IFPlanLeiteTheme {
-        HomeScreen()
+        WelcomeScreen()
     }
 }

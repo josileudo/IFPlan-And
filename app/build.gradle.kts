@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlinx.serialization)
     id("kotlin-kapt")
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
@@ -90,4 +91,5 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+    implementation(libs.kotlinx.serialization)
 }

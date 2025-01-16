@@ -23,6 +23,7 @@ engageCore = "1.5.5"
 roomCommon = "2.6.1"
 roomKtx = "2.6.1"
 constraintlayout = "2.2.0"
+kotlinx-serialization = "1.6.2"
 
 [libraries]
 accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanistInsets" }
@@ -57,8 +58,10 @@ engage-core = { group = "com.google.android.engage", name = "engage-core", versi
 androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

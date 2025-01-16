@@ -45,7 +45,7 @@ fun IfPlanAnimalFormScreen(
                 animalViewModel.saveAnimal()
 
                 if(animalState.isSuccess) {
-                    navController?.navigate(Routes.dashboard)
+//                    navController?.navigate()
                 }
             }
         ) {
