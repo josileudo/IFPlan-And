@@ -7,27 +7,39 @@ import android.view.animation.OvershootInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.app.compose.IFPlanLeiteTheme
 import com.app.ifplan_leite.R
-import com.app.ifplan_leite.ui.screen.main.MainScreen
+import com.app.ifplan_leite.ui.components.navigation.BottomNavigationBar
+import com.app.ifplan_leite.ui.screen.home.HomeScreen
+import com.app.ifplan_leite.ui.screen.home.HomeViewModel
+import com.app.ifplan_leite.ui.screen.route.BottomNavItem
+import com.app.ifplan_leite.ui.screen.route.Routes
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     val viewModel by viewModels<MainViewModel>()
+
 
     private lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,15 +84,60 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             navController = rememberNavController()
+            val currentBackStackEntry = navController.currentBackStackEntryAsState()
+            val currentRoute = currentBackStackEntry.value?.destination?.route
+
+            val homeViewModel by viewModels<HomeViewModel>()
+            val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
+
             setTheme(R.style.Theme_App_Splash)
             var selected by remember { mutableIntStateOf(0) }
                 IFPlanLeiteTheme(dynamicColor = false) {
                     SetBarColor(MaterialTheme.colorScheme.background)
-                    MainScreen(navController = navController)
+                    Scaffold(
+                        // Check what's of screens have bottom bar
+                        bottomBar = {
+                            if(currentRoute in listOf(
+                                    BottomNavItem.Home.route,
+                                    BottomNavItem.Profile.route,
+                                    BottomNavItem.Settings.route
+                                )) {
+                                BottomNavigationBar(navController = navController)
+                            }
+                        }
+                    ) { innerPadding ->
+                        NavHost(
+                            navController = navController,
+                            startDestination = BottomNavItem.Home.route,
+                            modifier = Modifier.padding(innerPadding)
+                        ) {
+                            composable(BottomNavItem.Home.route) {
+                                HomeScreen(navigationToNewSimulation = {
+                                    navController.navigate(Routes.dashboard)
+                                },
+                                    uiState = homeUiState,
+                                    onEvent = homeViewModel::onEvent
+                                ) }
+                            composable(BottomNavItem.Profile.route) { ProfileScreen() }
+                            composable(BottomNavItem.Settings.route) { SettingsScreen() }
+
+                            composable(Routes.dashboard) { DashboardScreen(navController = navController) }
+                        }
+                    }
                 }
             }
         }
     }
+
+@Composable
+fun ProfileScreen( ) {
+
+}
+
+@Composable
+fun SettingsScreen( ) {
+
+}
 
 @Composable
 private fun SetBarColor(color: Color) {
