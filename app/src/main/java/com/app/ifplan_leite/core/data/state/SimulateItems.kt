@@ -1,9 +1,14 @@
 package com.app.ifplan_leite.core.data.state
 
-import java.util.Date
+import androidx.room.TypeConverters
+import com.app.ifplan_leite.core.data.model.utils.IFPlanConverters
+import kotlinx.serialization.Serializable
+import java.sql.Date
 
+@Serializable
 data class SimulateItems(
-    var id: String,
+    var id: Int,
     var title: String,
-    var date: Date,
+    var creationDate: String,
+    var description: String
 )

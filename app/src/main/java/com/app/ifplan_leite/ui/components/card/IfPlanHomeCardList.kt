@@ -14,7 +14,7 @@ import com.app.ifplan_leite.core.data.state.SimulateItems
 fun IfPlanHomeCardList(
     modifier: Modifier = Modifier,
     data: List<SimulateItems>,
-    onSimulateClick: (SimulateItems) -> Unit = {}
+    onSimulateClick: (SimulateItems) -> Unit = {},
 ) {
     LazyColumn(
         modifier = modifier,
@@ -24,8 +24,7 @@ fun IfPlanHomeCardList(
             IfPlanHomeCard(
                 modifier = modifier,
                 data = data[index],
-                onClick = { onSimulateClick(data[index])
-                }
+                onClick = { onSimulateClick(data[index])}
             )
         }
     }

@@ -1,9 +1,10 @@
 package com.app.ifplan_leite.ui.screen.home
 
+import com.app.ifplan_leite.core.data.entities.Simulation
+import com.app.ifplan_leite.core.data.model.SimulationWithDetails
 import com.app.ifplan_leite.core.data.state.FilteredItems
-import com.app.ifplan_leite.core.data.state.SimulateItems
 
 data class HomeUiState(
-    val simulateItems: List<SimulateItems>? = null,
+    val simulateItems: List<Simulation>? = null,
     val filteredItems: FilteredItems? = null,
 )

@@ -9,19 +9,14 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType.Companion.Text
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.app.compose.IFPlanLeiteTheme
-import com.app.ifplan_leite.core.data.model.mock.MockSimulateItems
+import com.app.ifplan_leite.core.data.model.utils.formatToSimpleDate
+import com.app.ifplan_leite.core.data.state.SimulateItems
 import com.app.ifplan_leite.ui.components.button.IFPlanButton
 import com.app.ifplan_leite.ui.components.card.IfPlanHomeCardList
 import com.app.ifplan_leite.ui.components.search.IfPlanSearchBar
@@ -32,19 +27,20 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     uiState: HomeUiState,
     onEvent: (HomeUiEvent) -> Unit = {},
-    navigationToNewSimulation: () -> Unit = {},
+    navigationToNewSimulation: (SimulateItems?) -> Unit = {}
 ) {
     LaunchedEffect(true) {
         onEvent(HomeUiEvent.OnFetchAllSimulations)
+//        onEvent(HomeUiEvent.OnSubmitResultSimulation)
     }
 
     Scaffold(
         floatingActionButton = {
             IFPlanButton(iconRes = Icons.Default.Add, onClick = {
-                navigationToNewSimulation()
+                navigationToNewSimulation(null)
             })
         }
-    ) {innerPadding ->
+    ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -60,12 +56,25 @@ fun HomeScreen(
 
             if(uiState.simulateItems?.isNotEmpty() == true) {
                 uiState.simulateItems?.let {
+                    val result: List<SimulateItems> = it.map { item ->
+                        SimulateItems(
+                            id = item.id,
+                            title = item.title,
+                            creationDate = item.creationDate.formatToSimpleDate(),
+                            description = item.description
+                        )
+                    }
+
                     IfPlanHomeCardList(
                         modifier = Modifier.fillMaxWidth(),
-                        data = it
+                        data = result,
+                        onSimulateClick = {simulateItems ->
+                            navigationToNewSimulation(simulateItems)
+                        }
                     )
                 }
             } else {
+                // TODO Create a component to show a message
                 Text(text = "Não possue simulações")
             }
         }

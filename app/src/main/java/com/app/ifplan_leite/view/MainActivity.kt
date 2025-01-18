@@ -7,6 +7,7 @@ import android.view.animation.OvershootInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -20,14 +21,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.app.compose.IFPlanLeiteTheme
 import com.app.ifplan_leite.R
+import com.app.ifplan_leite.core.data.entities.Simulation
+import com.app.ifplan_leite.core.data.state.SimulateItems
 import com.app.ifplan_leite.ui.components.navigation.BottomNavigationBar
 import com.app.ifplan_leite.ui.screen.home.HomeScreen
 import com.app.ifplan_leite.ui.screen.home.HomeViewModel
@@ -39,7 +44,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     val viewModel by viewModels<MainViewModel>()
-
 
     private lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,11 +91,11 @@ class MainActivity : ComponentActivity() {
             val currentBackStackEntry = navController.currentBackStackEntryAsState()
             val currentRoute = currentBackStackEntry.value?.destination?.route
 
-            val homeViewModel by viewModels<HomeViewModel>()
+            val homeViewModel: HomeViewModel = hiltViewModel()
             val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
 
             setTheme(R.style.Theme_App_Splash)
-            var selected by remember { mutableIntStateOf(0) }
+
                 IFPlanLeiteTheme(dynamicColor = false) {
                     SetBarColor(MaterialTheme.colorScheme.background)
                     Scaffold(
@@ -112,16 +116,24 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.padding(innerPadding)
                         ) {
                             composable(BottomNavItem.Home.route) {
-                                HomeScreen(navigationToNewSimulation = {
-                                    navController.navigate(Routes.dashboard)
+                                HomeScreen(navigationToNewSimulation = { selectSimulation ->
+                                    //TODO Apply ternary after
+                                    selectSimulation?.let { navController.navigate(it) }
                                 },
                                     uiState = homeUiState,
                                     onEvent = homeViewModel::onEvent
                                 ) }
+                            composable<SimulateItems> {
+                                val selectSimulateItems = it.toRoute<SimulateItems>()
+
+                                DashboardScreen(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    navController = navController,
+                                    simulateItems = selectSimulateItems,
+                                )
+                            }
                             composable(BottomNavItem.Profile.route) { ProfileScreen() }
                             composable(BottomNavItem.Settings.route) { SettingsScreen() }
-
-                            composable(Routes.dashboard) { DashboardScreen(navController = navController) }
                         }
                     }
                 }

@@ -4,6 +4,7 @@ import android.content.Context
 import com.app.ifplan_leite.core.data.dao.AnimalDao
 import com.app.ifplan_leite.core.data.dao.AreaDao
 import com.app.ifplan_leite.core.data.dao.EconomyDao
+import com.app.ifplan_leite.core.data.dao.SimulationDao
 import com.app.ifplan_leite.core.data.dao.WeatherAndSoilDao
 import com.app.ifplan_leite.core.data.database.IFPlanDatabase
 import dagger.Module
@@ -41,5 +42,11 @@ object DatabaseModule {
     @Provides
     fun provideWeatherAndSoil(database: IFPlanDatabase): WeatherAndSoilDao {
         return database.weatherAndSoilDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSimulationDao(database: IFPlanDatabase): SimulationDao {
+        return database.simulationDao()
     }
 }

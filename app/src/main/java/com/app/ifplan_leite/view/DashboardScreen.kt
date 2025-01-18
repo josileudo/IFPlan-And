@@ -17,15 +17,18 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SheetState
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,27 +39,36 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.app.compose.IFPlanLeiteTheme
+import com.app.ifplan_leite.core.data.model.mock.MockSimulateItems
+import com.app.ifplan_leite.core.data.state.SimulateItems
 import com.app.ifplan_leite.ui.components.button.IFPlanButton
 import com.app.ifplan_leite.ui.components.navigation.TopBarConfig
 import com.app.ifplan_leite.ui.screen.animal.IfPlanAnimalScreen
 import com.app.ifplan_leite.ui.screen.area.AreaView
 import com.app.ifplan_leite.ui.screen.economy.EconomyView
 import com.app.ifplan_leite.ui.screen.route.BottomNavItem
-import com.app.ifplan_leite.ui.screen.route.Routes
 import com.app.ifplan_leite.ui.screen.soilWaterPlantAnimal.SoilWaterPlantAnimalView
 import com.app.ifplan_leite.ui.screen.systemsCostsResultEconomic.SystemsCostsResultEconomicView
 import com.app.ifplan_leite.ui.screen.weatherAndSoil.WeatherAndSoilView
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(
     modifier: Modifier = Modifier,
+    simulateItems: SimulateItems? = null,
     navController: NavController? = null
 ) {
-    var selectedIndex by rememberSaveable { mutableStateOf(0) }
+    var selectedIndex by remember { mutableIntStateOf(0) }
+    val options = listOf("Dados", "Resultado")
 
     Scaffold(
-        topBar = { TopBarConfig("Criar nova simulação", onNavigateBack = { navController?.popBackStack() },) }
+        topBar = {
+            TopBarConfig(
+                formTitle = simulateItems?.title ?: "Criar nova simulação",
+                onNavigateBack = { navController?.popBackStack() }
+            )
+        }
     ) { innerPadding ->
         Column(
             modifier
@@ -66,8 +78,62 @@ fun DashboardScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
+            SingleChoiceSegmentedButtonRow(modifier = modifier) {
+                options.forEachIndexed { index, label ->
+                    SegmentedButton(
+                        shape = SegmentedButtonDefaults.itemShape(
+                            index = index,
+                            count = options.size
+                        ),
+                        onClick = { selectedIndex = index },
+                        selected = index == selectedIndex,
+                        label = { Text(label) }
+                    )
+                }
+            }
+
             //MARK: Card to dashboard view
-            CardsOfDashboard(navController = navController)
+            if(selectedIndex == 0) {
+                CardsOfDashboard(navController = navController)
+            } else {
+                Column(
+                    Modifier
+//                        .padding(horizontal = 12.dp)
+//                        .padding(bottom=12.dp)
+//                        .verticalScroll(verticalScroll)
+                ) {
+                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        SoilWaterPlantAnimalView()
+                        SystemsCostsResultEconomicView()
+                    }
+
+                    // TODO: Add a spacing
+                    Spacer(Modifier.padding(vertical = 12.dp))
+                    // MARK: Content result
+                    Box(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        IFPlanButton(
+                            modifier = modifier.fillMaxWidth(),
+                            iconRes = Icons.Rounded.Check,
+                            text = "Salvar simulação",
+//                            onClick =  {
+//                                scope.launch {
+//                                    sheetState.hide()
+//                                }.invokeOnCompletion {
+//                                    if(!sheetState.isVisible) {
+//                                        onDismissRequest()
+//                                        navController?.navigate(BottomNavItem.Home.route)
+//                                    }
+//                                }
+//                            }
+                        )
+                    }
+                }
+            }
 
             //MARK: Button to simulate result
             SimulateButton(navController = navController)
@@ -181,6 +247,6 @@ fun ResultsBottomSheet(
 fun DashboardScreenPreview() {
     IFPlanLeiteTheme {
         val navController = rememberNavController()
-        DashboardScreen(navController = navController)
+        DashboardScreen(navController = navController, simulateItems = MockSimulateItems[0])
     }
 }
