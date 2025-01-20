@@ -7,6 +7,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.compose.IFPlanLeiteTheme
 import com.app.ifplan_leite.R
+import com.app.ifplan_leite.core.data.entities.ResultSimulation
 import com.app.ifplan_leite.core.data.model.TitleAndValue
 import com.app.ifplan_leite.core.data.model.utils.formatterCurrency
 import com.app.ifplan_leite.ui.components.card.IfPlanCardInfoResultContainer
@@ -14,24 +15,37 @@ import com.app.ifplan_leite.view.SimulateViewModel
 
 @Composable
 fun SoilWaterPlantAnimalView(
-    simulateViewModel: SimulateViewModel = hiltViewModel()
+    resultSimulation: ResultSimulation? = null
 ){
-    val state = simulateViewModel.soilWaterPlantAnimalState.collectAsState().value
-    val items = listOf(
-        TitleAndValue("Tensão da água no solo (bar)", formatterCurrency(state.tenAguaSolo)),
-        TitleAndValue("Produção de forragem (kg MV/m2)", formatterCurrency(state.prodForragem)),
-        TitleAndValue("Capacidade de suporte (animais)", formatterCurrency(state.capaSuporte, 1)),
-        TitleAndValue("Taxa de lotação (vacas/ha)", formatterCurrency(state.taxaLotacao, 1)),
-        TitleAndValue("ITU", formatterCurrency(state.itu, 1)),
-        TitleAndValue("DPL (L/vaca/dia)", formatterCurrency(state.dpl, 1)),
-        TitleAndValue("Pegada hídrica (L H2O/L leite)", formatterCurrency(state.pegadaHidrica, 2)),
-    )
+    val items =
+        resultSimulation?.let {
+            listOf(
+                TitleAndValue("Tensão da água no solo (bar)", formatterCurrency(it.tenAguaSolo)),
+                TitleAndValue(
+                    "Produção de forragem (kg MV/m2)",
+                    formatterCurrency(it.prodForragem)
+                ),
+                TitleAndValue(
+                    "Capacidade de suporte (animais)",
+                    formatterCurrency(it.capaSuporte, 1)
+                ),
+                TitleAndValue("Taxa de lotação (vacas/ha)", formatterCurrency(it.taxaLotacao, 1)),
+                TitleAndValue("ITU", formatterCurrency(it.itu, 1)),
+                TitleAndValue("DPL (L/vaca/dia)", formatterCurrency(it.dpl, 1)),
+                TitleAndValue(
+                    "Pegada hídrica (L H2O/L leite)",
+                    formatterCurrency(it.pegadaHidrica, 2)
+                ),
+            )
+        }
 
-    IfPlanCardInfoResultContainer(
-        title = stringResource(R.string.soil_water_plants_animal),
-        listItems = items,
-        showButton = false
-    )
+    items?.let {
+        IfPlanCardInfoResultContainer(
+            title = stringResource(R.string.soil_water_plants_animal),
+            listItems = it,
+            showButton = false
+        )
+    }
 }
 
 @Preview(showBackground = true, showSystemUi = true)

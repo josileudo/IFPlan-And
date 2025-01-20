@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.swipeable
 import com.app.compose.Gray100
 import com.app.compose.IFPlanLeiteTheme
 import com.app.ifplan_leite.core.data.model.mock.MockSimulateItems
@@ -26,6 +28,7 @@ import com.app.ifplan_leite.core.data.state.SimulateItems
 import com.app.ifplan_leite.ui.components.button.IFPlanButton
 import com.app.ui.theme.Typography
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IfPlanHomeCard(
     modifier: Modifier = Modifier,

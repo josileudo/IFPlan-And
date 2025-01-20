@@ -14,9 +14,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.animation.doOnEnd
@@ -31,13 +28,13 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.app.compose.IFPlanLeiteTheme
 import com.app.ifplan_leite.R
-import com.app.ifplan_leite.core.data.entities.Simulation
 import com.app.ifplan_leite.core.data.state.SimulateItems
 import com.app.ifplan_leite.ui.components.navigation.BottomNavigationBar
 import com.app.ifplan_leite.ui.screen.home.HomeScreen
 import com.app.ifplan_leite.ui.screen.home.HomeViewModel
+import com.app.ifplan_leite.ui.screen.result.DashboardScreen
+import com.app.ifplan_leite.ui.screen.result.ResultViewModel
 import com.app.ifplan_leite.ui.screen.route.BottomNavItem
-import com.app.ifplan_leite.ui.screen.route.Routes
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -94,6 +91,9 @@ class MainActivity : ComponentActivity() {
             val homeViewModel: HomeViewModel = hiltViewModel()
             val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
 
+            val resultViewModel: ResultViewModel = hiltViewModel()
+            val resultUiState by resultViewModel.uiState.collectAsStateWithLifecycle()
+
             setTheme(R.style.Theme_App_Splash)
 
                 IFPlanLeiteTheme(dynamicColor = false) {
@@ -129,6 +129,8 @@ class MainActivity : ComponentActivity() {
                                 DashboardScreen(
                                     modifier = Modifier.fillMaxWidth(),
                                     navController = navController,
+                                    onEvent = resultViewModel::onEvent,
+                                    uiState = resultUiState,
                                     simulateItems = selectSimulateItems,
                                 )
                             }

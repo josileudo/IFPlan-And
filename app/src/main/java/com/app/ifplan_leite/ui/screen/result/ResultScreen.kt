@@ -1,4 +1,4 @@
-package com.app.ifplan_leite.view
+package com.app.ifplan_leite.ui.screen.result
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +24,7 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -50,6 +51,7 @@ import com.app.ifplan_leite.ui.screen.route.BottomNavItem
 import com.app.ifplan_leite.ui.screen.soilWaterPlantAnimal.SoilWaterPlantAnimalView
 import com.app.ifplan_leite.ui.screen.systemsCostsResultEconomic.SystemsCostsResultEconomicView
 import com.app.ifplan_leite.ui.screen.weatherAndSoil.WeatherAndSoilView
+import com.app.ifplan_leite.view.SimulateViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,10 +59,18 @@ import kotlinx.coroutines.launch
 fun DashboardScreen(
     modifier: Modifier = Modifier,
     simulateItems: SimulateItems? = null,
-    navController: NavController? = null
+    navController: NavController? = null,
+    onEvent: (ResultUiEvent) -> Unit = {},
+    uiState: ResultUiState? = null
 ) {
     var selectedIndex by remember { mutableIntStateOf(0) }
     val options = listOf("Dados", "Resultado")
+
+    LaunchedEffect(true) {
+        simulateItems?.id?.let {
+            onEvent(ResultUiEvent.OnFetchResultSimulationById(it))
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -92,6 +102,8 @@ fun DashboardScreen(
                 }
             }
 
+            Spacer(modifier = modifier)
+
             //MARK: Card to dashboard view
             if(selectedIndex == 0) {
                 CardsOfDashboard(navController = navController)
@@ -103,8 +115,8 @@ fun DashboardScreen(
 //                        .verticalScroll(verticalScroll)
                 ) {
                     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        SoilWaterPlantAnimalView()
-                        SystemsCostsResultEconomicView()
+                        SoilWaterPlantAnimalView(resultSimulation = uiState?.resultSimulationById)
+                        SystemsCostsResultEconomicView(resultSimulation = uiState?.resultSimulationById)
                     }
 
                     // TODO: Add a spacing

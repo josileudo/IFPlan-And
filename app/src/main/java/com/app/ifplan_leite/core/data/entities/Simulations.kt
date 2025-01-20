@@ -6,7 +6,7 @@ import java.util.Date
 
 @Entity(tableName = "ifplan_simulation")
 data class Simulation(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val title: String,
     val creationDate: Date = Date(),
     val description: String,

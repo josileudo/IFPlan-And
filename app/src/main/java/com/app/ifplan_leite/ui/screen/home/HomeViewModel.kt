@@ -32,7 +32,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun insertSimulationItem() {
-        var item = Simulation(
+        val item = Simulation(
             title = "test 123",
             description = "test 123",
             creationDate = Date()

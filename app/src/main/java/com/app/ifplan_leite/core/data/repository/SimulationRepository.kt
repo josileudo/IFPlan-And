@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.app.ifplan_leite.core.data.dao.SimulationDao
 import com.app.ifplan_leite.core.data.entities.ResultSimulation
 import com.app.ifplan_leite.core.data.entities.Simulation
+import com.app.ifplan_leite.core.data.model.SimulationWithDetails
 import java.util.Date
 import javax.inject.Inject
 
@@ -12,8 +13,9 @@ data class SimulationRepository @Inject constructor(
 ) {
     suspend fun getAllSimulations() = simulationDao.getAllSimulations()
 
-    suspend fun getResultSimulationById(id: Long) {
-        simulationDao.getSimulationWithDetails(id = id)
+    suspend fun getResultSimulationById(id: Long): ResultSimulation {
+        val details = simulationDao.getSimulationWithDetails(simulationId = id)
+        return details.resultSimulation
     }
 
     suspend fun insertSimulationItem(simulation: Simulation) {

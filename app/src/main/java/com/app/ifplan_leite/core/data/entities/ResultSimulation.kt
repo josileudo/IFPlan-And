@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "result_simulation")
-class ResultSimulation (
+data class ResultSimulation (
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val simulationId: Long,
     val tenAguaSolo: Double = 0.0,

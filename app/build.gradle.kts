@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.app.ifplan_leite"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 34
         versionCode = 4
         versionName = "1.0.0"
@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.compose.material)
     ksp(libs.androidx.room.compiler)
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
