@@ -20,13 +20,13 @@ import com.app.ifplan_leite.core.data.model.utils.IFPlanConverters
 
 @Database(
     entities = [
-                    Animal::class,
-                    Area::class,
-                    Economy::class,
-                    WeatherAndSoil::class,
-                    Simulation::class,
-                    ResultSimulation::class
-               ],
+        Animal::class,
+        Area::class,
+        Economy::class,
+        WeatherAndSoil::class,
+        Simulation::class,
+        ResultSimulation::class
+    ],
     version = 1,
     exportSchema = true
 )

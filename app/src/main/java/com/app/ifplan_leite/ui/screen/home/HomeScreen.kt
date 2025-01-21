@@ -49,13 +49,13 @@ fun HomeScreen(
                 IfPlanSearchBar(
                     modifier = Modifier.fillMaxWidth(),
                     placeholder = "Procurar por simulação",
-                    onValueChange = {  onEvent.invoke(HomeUiEvent.OnFetchSimulationByField(it)) },
+                    onValueChange = { onEvent.invoke(HomeUiEvent.OnFetchSimulationByField(it)) },
                     value = it
                 )
             }
 
-            if(uiState.simulateItems?.isNotEmpty() == true) {
-                uiState.simulateItems?.let {
+            if (uiState.simulateItems?.isNotEmpty() == true) {
+                uiState.simulateItems.let {
                     val result: List<SimulateItems> = it.map { item ->
                         SimulateItems(
                             id = item.id,
@@ -68,7 +68,7 @@ fun HomeScreen(
                     IfPlanHomeCardList(
                         modifier = Modifier.fillMaxWidth(),
                         data = result,
-                        onSimulateClick = {simulateItems ->
+                        onSimulateClick = { simulateItems ->
                             navigationToNewSimulation(simulateItems)
                         }
                     )

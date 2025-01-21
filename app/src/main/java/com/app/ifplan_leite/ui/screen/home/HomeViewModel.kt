@@ -23,7 +23,7 @@ class HomeViewModel @Inject constructor(
 
     fun onEvent(event: HomeUiEvent) {
         when (event) {
-            is HomeUiEvent.OnFetchAllSimulations ->  fetchSimulationByField()
+            is HomeUiEvent.OnFetchAllSimulations -> fetchSimulationByField()
             is HomeUiEvent.OnFetchSimulationByField -> fetchSimulationByField(event.filter)
             is HomeUiEvent.OnSubmitSimulation -> insertSimulationItem()
             is HomeUiEvent.OnSubmitResultSimulation -> insertResultSimulation()
@@ -74,8 +74,8 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             val allSimulations = simulationRepository.getAllSimulations()
 
-           val filteredSimulations =  if(filter.isBlank()) {
-               allSimulations
+            val filteredSimulations = if (filter.isBlank()) {
+                allSimulations
             } else {
                 allSimulations.filter { item -> item.title.contains(filter, ignoreCase = true) }
             }

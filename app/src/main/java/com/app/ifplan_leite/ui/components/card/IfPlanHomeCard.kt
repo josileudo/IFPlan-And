@@ -20,7 +20,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.swipeable
 import com.app.compose.Gray100
 import com.app.compose.IFPlanLeiteTheme
 import com.app.ifplan_leite.core.data.model.mock.MockSimulateItems
@@ -40,17 +39,17 @@ fun IfPlanHomeCard(
             .clip(RoundedCornerShape(12.dp))
             .background(Gray100)
             .border(
-                width =  1.dp,
+                width = 1.dp,
                 color = Gray100,
                 shape = RoundedCornerShape(12.dp)
             ),
         onClick = { onClick() }
     ) {
-        Row (
+        Row(
             modifier = modifier.padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(
                     text = data.title,

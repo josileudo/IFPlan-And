@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "economy_database")
 data class Economy(
-        @PrimaryKey(autoGenerate = true) val id: Int = 1,
-        val investmentsPerLiters: Double,
-        val familyIncome: Double,
-        val depreciationRate: Double,
-    )
+    @PrimaryKey(autoGenerate = true) val id: Int = 1,
+    val investmentsPerLiters: Double,
+    val familyIncome: Double,
+    val depreciationRate: Double,
+)

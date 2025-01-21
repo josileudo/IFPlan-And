@@ -1,4 +1,4 @@
-package com.app.ifplan_leite.ui.screen.weatherAndSoil
+package com.app.ifplan_leite.ui.screen.economy.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
@@ -7,49 +7,54 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.app.ifplan_leite.R
-import com.app.ifplan_leite.ui.screen.route.Routes
 import com.app.ifplan_leite.ui.components.form.IfPlanFormContainer
-import com.app.ifplan_leite.ui.screen.weatherAndSoil.components.WeatherAndSoilFormView
-import com.app.ifplan_leite.view.WeatherAndSoilViewModel
+import com.app.ifplan_leite.ui.screen.economy.EconomyUiEvent
+import com.app.ifplan_leite.ui.screen.economy.EconomyUiState
+import com.app.ifplan_leite.ui.screen.route.Routes
 
 @Composable
-fun WeatherAndSoilFormScreen(
+fun EconomyFormScreen(
     modifier: Modifier = Modifier,
-    weatherAndSoilViewModel: WeatherAndSoilViewModel = hiltViewModel(),
-    navController: NavController? = null
+    navController: NavController? = null,
+    uiState: EconomyUiState? = null,
+    onEvent: (EconomyUiEvent) -> Unit = {},
 ) {
-    val weatherAndSoilState = weatherAndSoilViewModel.weatherAndSoilState.collectAsState().value
+    val economyState = uiState
 
-    LaunchedEffect(Unit) {
-        weatherAndSoilViewModel.loadWeatherAndSoilData()
-    }
+//    LaunchedEffect(Unit) {
+//        economyViewModel.loadEconomyData()
+//    }
 
     Box(
         modifier
             .fillMaxSize()
             .fillMaxHeight()
             .background(MaterialTheme.colorScheme.background)
-    ){
+    ) {
         IfPlanFormContainer(
-            formTitle = stringResource(R.string.weatherAndSoil),
+            formTitle = stringResource(R.string.economy),
             onNavigateBack = { navController?.popBackStack() },
             onSaveClick = {
-                weatherAndSoilViewModel.saveWeatherAndSoil()
-
-                if(weatherAndSoilState.isSuccess) {
+                onEvent(EconomyUiEvent.OnSaveEconomy)
+                navController?.navigate(Routes.dashboard)
+//                if(economyState.isSuccess) {
 //                    navController?.navigate(Routes.dashboard)
-                }
+//                }
             }
         ) {
-            WeatherAndSoilFormView( weatherAndSoilViewModel = weatherAndSoilViewModel )
+            EconomyFormView(
+                investmentsPerLiters = uiState?.investmentsPerLiters ?: 0.0,
+                familyIncome = uiState?.familyIncome ?: 0.0,
+                depreciationRate = uiState?.depreciationRate ?: 0.0,
+                onFieldChange = { field, value ->
+                    onEvent(EconomyUiEvent.OnUpdateEconomyFields(field = field, value = value))
+                }
+            )
         }
     }
 }
@@ -57,5 +62,5 @@ fun WeatherAndSoilFormScreen(
 @Preview(showSystemUi = true, showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun AnimalFormScreenPreview() {
-    WeatherAndSoilFormScreen()
+    EconomyFormScreen()
 }

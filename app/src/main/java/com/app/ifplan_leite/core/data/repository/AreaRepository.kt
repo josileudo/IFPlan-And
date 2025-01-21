@@ -24,39 +24,40 @@ class AreaRepository @Inject constructor(
 
     fun getArea() = areaDao.getArea()
 
-    init {
-        loadAreaData()
-    }
-
     fun loadAreaData() {
         loadingJob?.cancel()
         coroutineScope.launch {
             try {
-                _areaState.update { it.copy( isSaving = true) }
+                _areaState.update { it.copy(isSaving = true) }
 
                 getArea()
                     .catch { error ->
-                        _areaState.update { it.copy(
-                            error = "Error ao carregar dados $error.message",
-                            isSuccess = false,
-                            isSaving = false
-                        ) }
-                    }
-                    .collect { area ->
-                        if(area != null) {
-                            _areaState.update { it.copy(
-                                area = area.area,
-                                picketsNumber = area.picketsNumber,
-                                isSuccess = true,
-                                error = null,
+                        _areaState.update {
+                            it.copy(
+                                error = "Error ao carregar dados $error.message",
+                                isSuccess = false,
                                 isSaving = false
                             )
+                        }
+                    }
+                    .collect { area ->
+                        if (area != null) {
+                            _areaState.update {
+                                it.copy(
+                                    area = area.area,
+                                    picketsNumber = area.picketsNumber,
+                                    isSuccess = true,
+                                    error = null,
+                                    isSaving = false
+                                )
                             }
                         } else {
-                            _areaState.update { it.copy(
-                                isSuccess = true,
-                                isSaving = false
-                            ) }
+                            _areaState.update {
+                                it.copy(
+                                    isSuccess = true,
+                                    isSaving = false
+                                )
+                            }
                         }
                     }
             } catch (error: Exception) {
@@ -71,33 +72,8 @@ class AreaRepository @Inject constructor(
         }
     }
 
-    fun saveArea() {
-        coroutineScope.launch {
-            _areaState.update { it.copy( isSaving = true ) }
-            try {
-                val currState = _areaState.value
-                with(currState) {
-                    val areaValue = Area(
-                        area = currState.area,
-                        picketsNumber = currState.picketsNumber,
-                    )
-                    areaDao.insertOrUpdate(areaValue)
-                }
-
-                _areaState.update {
-                    it.copy(
-                        isSuccess = true,
-                        error = null
-                    )
-                }
-            } catch(error: Exception) {
-                _areaState.update {it.copy(
-                    error = "Error ao salvar dados $error.message",
-                    isSuccess = false,
-                    isSaving = false
-                )}
-            }
-        }
+    suspend fun saveArea(areaValue: Area) {
+        areaDao.insertOrUpdate(areaValue)
     }
 
     suspend fun clearArea() = areaDao.deleteArea()

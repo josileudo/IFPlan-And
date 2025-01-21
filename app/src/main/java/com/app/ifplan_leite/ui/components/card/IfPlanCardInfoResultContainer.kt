@@ -19,14 +19,14 @@ import com.app.ifplan_leite.R
 import com.app.ifplan_leite.core.data.model.TitleAndValue
 
 @Composable
-fun IfPlanCardInfoResultContainer (
+fun IfPlanCardInfoResultContainer(
     modifier: Modifier = Modifier,
     title: String = "",
     isLoading: Boolean = false,
     onClick: () -> Unit = {},
     showButton: Boolean = true,
     error: String? = null,
-    listItems:  List<TitleAndValue> = emptyList(),
+    listItems: List<TitleAndValue> = emptyList(),
 ) {
     Card(modifier.fillMaxWidth()) {
         Column(modifier.padding(16.dp)) {
@@ -43,28 +43,34 @@ fun IfPlanCardInfoResultContainer (
                         modifier.align(Alignment.CenterHorizontally)
                     )
                 }
+
                 error != null -> {
                     Text(
                         text = error,
                         color = MaterialTheme.colorScheme.error,
                         modifier = modifier.align(Alignment.CenterHorizontally)
                     )
-                } else -> {
+                }
+
+                else -> {
                     for (item in listItems) {
                         IfPlanCardInfoResult(item.title, item.value)
                     }
 
-                    if(showButton) {
+                    if (showButton) {
                         Box(
                             modifier
                                 .fillMaxWidth()
                                 .padding(top = 16.dp),
                             contentAlignment = Alignment.CenterEnd
                         ) {
-                            TextButton (onClick = {
+                            TextButton(onClick = {
                                 onClick()
                             }) {
-                                Text(text = stringResource(R.string.edit), fontWeight = FontWeight.Bold)
+                                Text(
+                                    text = stringResource(R.string.edit),
+                                    fontWeight = FontWeight.Bold
+                                )
                             }
                         }
                     }

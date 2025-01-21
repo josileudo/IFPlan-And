@@ -19,14 +19,16 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun IfPlanTextField(
-        modifier: Modifier = Modifier.fillMaxWidth().imePadding(),
-        maxLines: Int = 1,
-        value: String,
-        keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-        label: String = "",
-        visualTransformation: VisualTransformation = VisualTransformation.None,
-        onValueChange: (String) -> Unit = {},
-        keyboardActions: KeyboardActions? = null,
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .imePadding(),
+    maxLines: Int = 1,
+    value: String,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    label: String = "",
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    onValueChange: (String) -> Unit = {},
+    keyboardActions: KeyboardActions? = null,
 ) {
     var fieldPosition by remember { mutableStateOf(0) }
     OutlinedTextField(

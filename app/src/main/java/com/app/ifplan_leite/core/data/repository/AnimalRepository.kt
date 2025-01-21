@@ -27,7 +27,7 @@ class AnimalRepository @Inject constructor(
         loadAnimalData()
     }
 
-    private fun getAnimal() = animalDao.getAnimal()
+    fun getAnimal() = animalDao.getAnimal()
 
     fun loadAnimalData() {
         loadingJob?.cancel()
@@ -89,7 +89,7 @@ class AnimalRepository @Inject constructor(
                 _animalState.update { it.copy(isSaving = true) }
 
                 with(_animalState.value) {
-                   val animal = Animal(
+                    val animal = Animal(
                         pesoCorporal = pesoCorporal,
                         milkProduction = milkProduction,
                         milkFatContent = milkFatContent,

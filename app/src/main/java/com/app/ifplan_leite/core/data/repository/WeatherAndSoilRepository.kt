@@ -32,38 +32,43 @@ class WeatherAndSoilRepository @Inject constructor(
         loadingJob?.cancel()
         coroutineScope.launch {
             try {
-                _weatherAndSoilState.update { it.copy( isSaving = true) }
+                _weatherAndSoilState.update { it.copy(isSaving = true) }
 
                 // TODO: Add error string to string resources
                 getWeatherAndSoil()
                     .catch { error ->
-                        _weatherAndSoilState.update { it.copy(
-                            error = "Error ao carregar dados $error.message",
-                            isSuccess = false,
-                            isSaving = false
-                        ) }
-                    }
-                    .collect { weatherAndSoil ->
-                        if(weatherAndSoil != null) {
-                            _weatherAndSoilState.update { it.copy(
-                                precipitation = weatherAndSoil.precipitation,
-                                maxTemperature = weatherAndSoil.maxTemperature,
-                                minTemperature = weatherAndSoil.minTemperature,
-                                relativeHumidity = weatherAndSoil.relativeHumidity,
-                                velocityVents = weatherAndSoil.velocityVents,
-                                nDosage = weatherAndSoil.nDosage,
-                                otherAndWater = weatherAndSoil.otherAndWater,
-                                waterAvailableToIrrigation = weatherAndSoil.waterAvailableToIrrigation,
-                                isSuccess = true,
-                                error = null,
+                        _weatherAndSoilState.update {
+                            it.copy(
+                                error = "Error ao carregar dados $error.message",
+                                isSuccess = false,
                                 isSaving = false
                             )
+                        }
+                    }
+                    .collect { weatherAndSoil ->
+                        if (weatherAndSoil != null) {
+                            _weatherAndSoilState.update {
+                                it.copy(
+                                    precipitation = weatherAndSoil.precipitation,
+                                    maxTemperature = weatherAndSoil.maxTemperature,
+                                    minTemperature = weatherAndSoil.minTemperature,
+                                    relativeHumidity = weatherAndSoil.relativeHumidity,
+                                    velocityVents = weatherAndSoil.velocityVents,
+                                    nDosage = weatherAndSoil.nDosage,
+                                    otherAndWater = weatherAndSoil.otherAndWater,
+                                    waterAvailableToIrrigation = weatherAndSoil.waterAvailableToIrrigation,
+                                    isSuccess = true,
+                                    error = null,
+                                    isSaving = false
+                                )
                             }
                         } else {
-                            _weatherAndSoilState.update { it.copy(
-                                isSuccess = true,
-                                isSaving = false
-                            ) }
+                            _weatherAndSoilState.update {
+                                it.copy(
+                                    isSuccess = true,
+                                    isSaving = false
+                                )
+                            }
                         }
                     }
             } catch (error: Exception) {

@@ -4,82 +4,85 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.ifplan_leite.core.data.model.FormFieldModel
 import com.app.ifplan_leite.core.data.model.utils.CurrencyInputField
-import com.app.ifplan_leite.view.AnimalViewModel
 
 @Composable
-fun AnimalFormView( animalViewModel: AnimalViewModel = hiltViewModel()) {
-    val animalState = animalViewModel.animalState.collectAsState()
-
-    if(animalState.value.isSuccess) {
+fun AnimalFormView(
+    pesoCorporal: Double,
+    milkProduction: Double,
+    milkFatContent: Double,
+    pbFatMilk: Double,
+    horizontalShift: Double,
+    verticalShift: Double,
+    lactatingCows: Double,
+    onFieldChange: (field: String, value: Double) -> Unit = { s: String, d: Double -> }
+) {
+//    if(animalState.value.isSuccess) {
         val formItems = listOf(
             // PESO CORPORAL
             FormFieldModel(
                 label = "Peso corporal (kg)",
-                onValueChange = { animalViewModel.updatePesoCorporal(it) },
+                onValueChange = { onFieldChange("pesoCorporal", it) },
                 decimalsNumber = 2,
-                value = animalState.value.pesoCorporal
+                value = pesoCorporal
             ),
             // PRODUÇÃO DE LEITE
             FormFieldModel(
                 label = "Produção de leite (L/vaca/dia)",
-                value = animalState.value.milkProduction,
+                value = milkProduction,
                 decimalsNumber = 1,
-                onValueChange = {
-                    animalViewModel.updateMilkProduction(it)
-                },
+                onValueChange =
+                    { onFieldChange("milkProduction", it) },
             ),
             // TEOR DE GORDURA NO LEITE
             FormFieldModel(
                 label = "Teor de gordura no leite (%)",
-                value = animalState.value.milkFatContent,
+                value = milkFatContent,
                 decimalsNumber = 1,
                 onValueChange = {
-                    animalViewModel.updateMilkFatContent(it)
+                    onFieldChange("milkFatContent", it)
                 }
             ),
             // TEOR DE PB NO LEITE
             FormFieldModel(
                 label = "Teor de PB no leite (%)",
-                value = animalState.value.pbFatMilk,
+                value = pbFatMilk,
                 decimalsNumber = 1,
                 onValueChange = {
-                    animalViewModel.updatePbFatMilk(it)
+                    onFieldChange("pbFatMilk", it)
                 }
             ),
             // DESLOCAMENTO HORIZONTAL
             FormFieldModel(
                 label = "Deslocamento horizontal (m)",
-                value = animalState.value.horizontalShift,
+                value = horizontalShift,
                 onValueChange = {
-                    animalViewModel.updateHorizontalShift(it)
+                    onFieldChange("horizontalShift", it)
                 }
             ),
             // DESLOCAMENTO VERTICAL
             FormFieldModel(
                 label = "Deslocamento vertical (m)",
-                value = animalState.value.verticalShift,
+                value =  verticalShift,
                 onValueChange = {
-                    animalViewModel.updateVerticalShift(it)
+                    onFieldChange("verticalShift", it)
                 }
             ),
             // VACAS EM LACTAÇÃO
             FormFieldModel(
                 label = "Vacas em lactação (%)",
-                value = animalState.value.lactatingCows,
+                value =  lactatingCows,
                 decimalsNumber = 1,
-                onValueChange = { animalViewModel.updateLactatingCows(it)  }
+                onValueChange = { onFieldChange("lactatingCows", it)  }
             )
         )
 
         FieldsConfiguration(formItems)
-    }
+//    }
 }
 
 @Composable

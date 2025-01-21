@@ -32,33 +32,38 @@ class EconomyRepository @Inject constructor(
         loadingJob?.cancel()
         coroutineScope.launch {
             try {
-                _economyState.update { it.copy( isSaving = true) }
+                _economyState.update { it.copy(isSaving = true) }
 
                 // TODO: Add error string to string resources
                 getEconomy()
                     .catch { error ->
-                        _economyState.update { it.copy(
-                            error = "Error ao carregar dados $error.message",
-                            isSuccess = false,
-                            isSaving = false
-                        ) }
-                    }
-                    .collect { economy ->
-                        if(economy != null) {
-                            _economyState.update { it.copy(
-                                investmentsPerLiters = economy.investmentsPerLiters,
-                                familyIncome = economy.familyIncome,
-                                depreciationRate = economy.depreciationRate,
-                                isSuccess = true,
-                                error = null,
+                        _economyState.update {
+                            it.copy(
+                                error = "Error ao carregar dados $error.message",
+                                isSuccess = false,
                                 isSaving = false
                             )
+                        }
+                    }
+                    .collect { economy ->
+                        if (economy != null) {
+                            _economyState.update {
+                                it.copy(
+                                    investmentsPerLiters = economy.investmentsPerLiters,
+                                    familyIncome = economy.familyIncome,
+                                    depreciationRate = economy.depreciationRate,
+                                    isSuccess = true,
+                                    error = null,
+                                    isSaving = false
+                                )
                             }
                         } else {
-                            _economyState.update { it.copy(
-                                isSuccess = true,
-                                isSaving = false
-                            ) }
+                            _economyState.update {
+                                it.copy(
+                                    isSuccess = true,
+                                    isSaving = false
+                                )
+                            }
                         }
                     }
             } catch (error: Exception) {
@@ -76,7 +81,7 @@ class EconomyRepository @Inject constructor(
 
     fun saveEconomy() {
         coroutineScope.launch {
-            _economyState.update { it.copy( isSaving = true ) }
+            _economyState.update { it.copy(isSaving = true) }
             try {
                 val currState = _economyState.value
                 with(currState) {
@@ -94,13 +99,15 @@ class EconomyRepository @Inject constructor(
                         error = null
                     )
                 }
-            } catch(error: Exception) {
+            } catch (error: Exception) {
                 // TODO: Add error to string resources
-                _economyState.update {it.copy(
-                    error = "Error ao salvar dados $error.message",
-                    isSuccess = false,
-                    isSaving = false
-                )}
+                _economyState.update {
+                    it.copy(
+                        error = "Error ao salvar dados $error.message",
+                        isSuccess = false,
+                        isSaving = false
+                    )
+                }
             }
         }
     }

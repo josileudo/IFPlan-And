@@ -11,7 +11,7 @@ import com.app.ifplan_leite.ui.screen.route.bottomNavItems
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
-    val currentDestination = navController.currentBackStackEntryAsState()?.value?.destination?.route
+    val currentDestination = navController.currentBackStackEntryAsState().value?.destination?.route
 
     NavigationBar {
         bottomNavItems.forEach { item ->

@@ -5,43 +5,41 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.ifplan_leite.R
 import com.app.ifplan_leite.core.data.model.FormFieldModel
 import com.app.ifplan_leite.core.data.model.utils.CurrencyInputField
-import com.app.ifplan_leite.view.AreaViewModel
 
 @Composable
 fun AreaFormView(
-    areaViewModel: AreaViewModel = hiltViewModel(),
+    area: Double,
+    picketsNumber: Double,
+    onFieldChange: (field: String, value: Double) -> Unit = { s: String, d: Double -> }
 ) {
-    val areaState = areaViewModel.areaState.collectAsState()
 
-    if(areaState.value.isSuccess) {
-        val formItems = listOf(
-            FormFieldModel(
-                modifier = Modifier.fillMaxWidth(),
-                label = stringResource(R.string.area_ha),
-                value = areaState.value.area,
-                decimalsNumber = 1,
-                onValueChange = { areaViewModel.updateArea(it) }
-            ),
-            FormFieldModel(
-                modifier = Modifier.fillMaxWidth(),
-                label = stringResource(R.string.pickets_number),
-                value = areaState.value.picketsNumber,
-                decimalsNumber = 1,
-                onValueChange = { areaViewModel.updatePicketsNumber(it) },
-            )
+//    if(areaState.value.isSuccess) {
+    val formItems = listOf(
+        FormFieldModel(
+            modifier = Modifier.fillMaxWidth(),
+            label = stringResource(R.string.area_ha),
+            value = area,
+            decimalsNumber = 1,
+            onValueChange = { onFieldChange("area", it) }
+        ),
+        FormFieldModel(
+            modifier = Modifier.fillMaxWidth(),
+            label = stringResource(R.string.pickets_number),
+            value = picketsNumber,
+            decimalsNumber = 1,
+            onValueChange = { onFieldChange("picketsNumber", it) },
         )
+    )
 
-        FieldsConfiguration(formItems)
-    }
+    FieldsConfiguration(formItems)
+//    }
 }
 
 @Composable
@@ -51,12 +49,12 @@ fun FieldsConfiguration(formItems: List<FormFieldModel>) {
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        for(item in formItems) {
+        for (item in formItems) {
             CurrencyInputField(
                 modifier = Modifier.fillMaxWidth(),
-                label =  item.label,
+                label = item.label,
                 value = item.value,
-                decimalsNumber =  item.decimalsNumber,
+                decimalsNumber = item.decimalsNumber,
                 onValueChange = item.onValueChange,
                 lastItem = formItems.last().label == item.label
             )

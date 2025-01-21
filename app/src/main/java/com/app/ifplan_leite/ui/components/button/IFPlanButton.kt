@@ -9,14 +9,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,19 +37,19 @@ fun IFPlanButton(
     iconRes: ImageVector? = null,
     size: String = "md"
 ) {
-    val height = when(size) {
+    val height = when (size) {
         "xm" -> 16.dp
         "sm" -> 22.dp
         "md" -> 48.dp
         else -> 66.dp
     }
-    val textStyle = when(size) {
+    val textStyle = when (size) {
         "xm" -> Typography.labelLarge.copy(fontSize = 8.sp)
         "sm" -> Typography.labelLarge.copy(fontSize = 10.sp)
         "md" -> Typography.labelLarge
         else -> Typography.labelLarge.copy(fontSize = 24.sp)
     }
-    val iconSize = when(size) {
+    val iconSize = when (size) {
         "xm" -> 8.dp
         "sm" -> 12.dp
         "md" -> 20.dp
@@ -73,20 +71,22 @@ fun IFPlanButton(
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
 
-           if(isLoading) {
-               CircularProgressIndicator(
-                   modifier = Modifier.height(iconSize).aspectRatio(1f),
-                   color = Gray100,
-               )
-           } else {
-               iconRes?.let {
-                   Icon(imageVector = iconRes, contentDescription = "button icon")
-               }
+            if (isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .height(iconSize)
+                        .aspectRatio(1f),
+                    color = Gray100,
+                )
+            } else {
+                iconRes?.let {
+                    Icon(imageVector = iconRes, contentDescription = "button icon")
+                }
 
-               text?.let {
-                   Text(text = text.uppercase(), style = textStyle )
-               }
-           }
+                text?.let {
+                    Text(text = text.uppercase(), style = textStyle)
+                }
+            }
         }
     }
 }
@@ -106,7 +106,7 @@ fun IFPlanButtonPreview() {
 fun IFPlanButtonBackPreview() {
     // Icon button
     IFPlanButton(
-        iconRes = Icons.Rounded.ArrowBack
+        iconRes = Icons.AutoMirrored.Rounded.ArrowBack
     )
 }
 

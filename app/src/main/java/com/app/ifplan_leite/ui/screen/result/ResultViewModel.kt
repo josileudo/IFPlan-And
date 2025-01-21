@@ -13,12 +13,12 @@ import javax.inject.Inject
 @HiltViewModel
 class ResultViewModel @Inject constructor(
     private val simulationRepository: SimulationRepository
-): ViewModel() {
+) : ViewModel() {
     private val _uiState = MutableStateFlow(ResultUiState())
     var uiState: StateFlow<ResultUiState> = _uiState.asStateFlow()
 
     fun onEvent(event: ResultUiEvent) {
-        when(event) {
+        when (event) {
             is ResultUiEvent.OnFetchResultSimulationById -> onFetchResultSimulationById(event.id)
             else -> {}
         }
@@ -28,9 +28,8 @@ class ResultViewModel @Inject constructor(
         println("*** onFetchResultSimulationById id = $id")
         viewModelScope.launch {
             val result = simulationRepository.getResultSimulationById(id)
-            println("*** result = ${result}")
             _uiState.value = _uiState.value.copy(
-               resultSimulationById = result
+                resultSimulationById = result
             )
         }
     }

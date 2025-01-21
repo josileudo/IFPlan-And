@@ -1,11 +1,8 @@
 package com.app.ifplan_leite.core.data.repository
 
-import androidx.lifecycle.viewModelScope
 import com.app.ifplan_leite.core.data.dao.SimulationDao
 import com.app.ifplan_leite.core.data.entities.ResultSimulation
 import com.app.ifplan_leite.core.data.entities.Simulation
-import com.app.ifplan_leite.core.data.model.SimulationWithDetails
-import java.util.Date
 import javax.inject.Inject
 
 data class SimulationRepository @Inject constructor(

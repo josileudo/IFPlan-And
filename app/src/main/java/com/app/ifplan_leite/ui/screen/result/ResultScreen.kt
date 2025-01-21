@@ -12,7 +12,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -33,7 +32,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -44,13 +42,17 @@ import com.app.ifplan_leite.core.data.model.mock.MockSimulateItems
 import com.app.ifplan_leite.core.data.state.SimulateItems
 import com.app.ifplan_leite.ui.components.button.IFPlanButton
 import com.app.ifplan_leite.ui.components.navigation.TopBarConfig
-import com.app.ifplan_leite.ui.screen.animal.IfPlanAnimalScreen
-import com.app.ifplan_leite.ui.screen.area.AreaView
-import com.app.ifplan_leite.ui.screen.economy.EconomyView
+import com.app.ifplan_leite.ui.screen.animal.AnimalScreen
+import com.app.ifplan_leite.ui.screen.animal.AnimalUiState
+import com.app.ifplan_leite.ui.screen.area.AreaScreen
+import com.app.ifplan_leite.ui.screen.area.AreaUiState
+import com.app.ifplan_leite.ui.screen.economy.EconomyScreen
+import com.app.ifplan_leite.ui.screen.economy.EconomyUiState
 import com.app.ifplan_leite.ui.screen.route.BottomNavItem
 import com.app.ifplan_leite.ui.screen.soilWaterPlantAnimal.SoilWaterPlantAnimalView
 import com.app.ifplan_leite.ui.screen.systemsCostsResultEconomic.SystemsCostsResultEconomicView
-import com.app.ifplan_leite.ui.screen.weatherAndSoil.WeatherAndSoilView
+import com.app.ifplan_leite.ui.screen.weatherAndSoil.WeatherAndSoilScreen
+import com.app.ifplan_leite.ui.screen.weatherAndSoil.WeatherAndSoilUiState
 import com.app.ifplan_leite.view.SimulateViewModel
 import kotlinx.coroutines.launch
 
@@ -61,7 +63,11 @@ fun DashboardScreen(
     simulateItems: SimulateItems? = null,
     navController: NavController? = null,
     onEvent: (ResultUiEvent) -> Unit = {},
-    uiState: ResultUiState? = null
+    uiState: ResultUiState? = null,
+    areaUiState: AreaUiState,
+    economyUiState: EconomyUiState,
+    weatherAndSoilUiState: WeatherAndSoilUiState,
+    animalUiState: AnimalUiState
 ) {
     var selectedIndex by remember { mutableIntStateOf(0) }
     val options = listOf("Dados", "Resultado")
@@ -88,25 +94,34 @@ fun DashboardScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            SingleChoiceSegmentedButtonRow(modifier = modifier) {
-                options.forEachIndexed { index, label ->
-                    SegmentedButton(
-                        shape = SegmentedButtonDefaults.itemShape(
-                            index = index,
-                            count = options.size
-                        ),
-                        onClick = { selectedIndex = index },
-                        selected = index == selectedIndex,
-                        label = { Text(label) }
-                    )
+            if (simulateItems?.id != null) {
+                SingleChoiceSegmentedButtonRow(modifier = modifier) {
+                    options.forEachIndexed { index, label ->
+                        SegmentedButton(
+                            shape = SegmentedButtonDefaults.itemShape(
+                                index = index,
+                                count = options.size
+                            ),
+                            onClick = { selectedIndex = index },
+                            selected = index == selectedIndex,
+                            label = { Text(label) }
+                        )
+                    }
                 }
+
+                Spacer(modifier = modifier)
             }
 
-            Spacer(modifier = modifier)
 
             //MARK: Card to dashboard view
-            if(selectedIndex == 0) {
-                CardsOfDashboard(navController = navController)
+            if (selectedIndex == 0) {
+                CardsOfDashboard(
+                    navController = navController,
+                    areaUiState = areaUiState,
+                    animalUiState = animalUiState,
+                    economyUiState = economyUiState,
+                    weatherAndSoilUiState = weatherAndSoilUiState
+                )
             } else {
                 Column(
                     Modifier
@@ -154,11 +169,17 @@ fun DashboardScreen(
 }
 
 @Composable
-fun CardsOfDashboard(navController: NavController?) {
-    AreaView(navController = navController)
-    EconomyView(navController = navController)
-    WeatherAndSoilView(navController = navController)
-    IfPlanAnimalScreen(navController = navController)
+fun CardsOfDashboard(
+    navController: NavController?,
+    areaUiState: AreaUiState,
+    economyUiState: EconomyUiState,
+    weatherAndSoilUiState: WeatherAndSoilUiState,
+    animalUiState: AnimalUiState
+) {
+    AreaScreen(navController = navController, uiState = areaUiState)
+    EconomyScreen(navController = navController, uiState = economyUiState)
+    WeatherAndSoilScreen(navController = navController, uiState = weatherAndSoilUiState)
+    AnimalScreen(navController = navController, uiState = animalUiState)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -171,17 +192,15 @@ fun SimulateButton(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-        Button(
+        IFPlanButton(
+            modifier = Modifier.fillMaxWidth(),
+            iconRes = Icons.Rounded.Check,
+            text = "Simular",
             onClick = {
                 showBottomSheet = true
                 simulateViewModel.simulate()
             }
-        ) {
-            Text(
-                text = "Simular",
-                fontWeight = FontWeight.Bold
-            )
-        }
+        )
     }
 
     ResultsBottomSheet(
@@ -205,17 +224,19 @@ fun ResultsBottomSheet(
 ) {
     val scope = rememberCoroutineScope()
 
-    if(isShow) {
+    if (isShow) {
         ModalBottomSheet(
             onDismissRequest = { onDismissRequest() },
             sheetState = sheetState,
-            modifier = Modifier.fillMaxHeight().padding(top = 8.dp)
+            modifier = Modifier
+                .fillMaxHeight()
+                .padding(top = 8.dp)
         ) {
             val verticalScroll = rememberScrollState(0)
             Column(
                 Modifier
                     .padding(horizontal = 12.dp)
-                    .padding(bottom=12.dp)
+                    .padding(bottom = 12.dp)
                     .verticalScroll(verticalScroll)
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -236,11 +257,11 @@ fun ResultsBottomSheet(
                         modifier = modifier.fillMaxWidth(),
                         iconRes = Icons.Rounded.Check,
                         text = "Salvar simulação",
-                        onClick =  {
+                        onClick = {
                             scope.launch {
                                 sheetState.hide()
                             }.invokeOnCompletion {
-                                if(!sheetState.isVisible) {
+                                if (!sheetState.isVisible) {
                                     onDismissRequest()
                                     navController?.navigate(BottomNavItem.Home.route)
                                 }
@@ -259,6 +280,13 @@ fun ResultsBottomSheet(
 fun DashboardScreenPreview() {
     IFPlanLeiteTheme {
         val navController = rememberNavController()
-        DashboardScreen(navController = navController, simulateItems = MockSimulateItems[0])
+        DashboardScreen(
+            navController = navController,
+            simulateItems = MockSimulateItems[0],
+            areaUiState = AreaUiState(),
+            animalUiState = AnimalUiState(),
+            economyUiState = EconomyUiState(),
+            weatherAndSoilUiState = WeatherAndSoilUiState()
+        )
     }
 }

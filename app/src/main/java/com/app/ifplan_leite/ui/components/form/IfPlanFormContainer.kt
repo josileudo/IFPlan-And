@@ -71,13 +71,13 @@ fun IfPlanFormContainer(
 }
 
 
-
 @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun BottomSheetComponentPreview() {
     IFPlanLeiteTheme {
         IfPlanFormContainer(
-            formTitle = "Test sheet")
+            formTitle = "Test sheet"
+        )
         {
             Text("Content example")
         }

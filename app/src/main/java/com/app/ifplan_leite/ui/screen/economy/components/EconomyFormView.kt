@@ -4,54 +4,56 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.ifplan_leite.R
 import com.app.ifplan_leite.core.data.model.FormFieldModel
 import com.app.ifplan_leite.core.data.model.utils.CurrencyInputField
-import com.app.ifplan_leite.view.EconomyViewModel
 
 @Composable
-fun EconomyFormView( economyViewModel: EconomyViewModel = hiltViewModel()) {
-    val economyState = economyViewModel.economyState.collectAsState()
+fun EconomyFormView(
+    investmentsPerLiters: Double = 0.0,
+    familyIncome: Double = 0.0,
+    depreciationRate: Double = 0.0,
+    onFieldChange: (field: String, value: Double) -> Unit = { s: String, d: Double -> }
+) {
+//    val economyState = economyViewModel.economyState.collectAsState()
 
-    if(economyState.value.isSuccess) {
-        val formItems = listOf(
-            // INVESTIMENTOS POR LITROS
-            FormFieldModel(
-                label = stringResource(R.string.investment_per_liters),
-                onValueChange = { economyViewModel.updateInvestmentsPerLiters(it) },
-                value = economyState.value.investmentsPerLiters,
-                decimalsNumber = 2
-            ),
+//    if(economyState.value.isSuccess) {
+    val formItems = listOf(
+        // INVESTIMENTOS POR LITROS
+        FormFieldModel(
+            label = stringResource(R.string.investment_per_liters),
+            onValueChange = { onFieldChange("investmentsPerLiters", it) },
+            value = investmentsPerLiters,
+            decimalsNumber = 2
+        ),
 
-            // RENDA FAMILIAR
-            FormFieldModel(
-                label = stringResource(R.string.family_income),
-                value = economyState.value.familyIncome,
-                decimalsNumber = 2,
-                onValueChange = {
-                    economyViewModel.updateFamilyIncome(it)
-                },
-            ),
+        // RENDA FAMILIAR
+        FormFieldModel(
+            label = stringResource(R.string.family_income),
+            value = familyIncome,
+            decimalsNumber = 2,
+            onValueChange = {
+                onFieldChange("familyIncome", it)
+            },
+        ),
 
-            // TAXA DE DEPRECIAÇÃO
-            FormFieldModel(
-                label = stringResource(R.string.depreciation_rate),
-                value = economyState.value.depreciationRate,
-                onValueChange = {
-                economyViewModel.updateDepreciationRate(it)
-                },
-            )
+        // TAXA DE DEPRECIAÇÃO
+        FormFieldModel(
+            label = stringResource(R.string.depreciation_rate),
+            value = depreciationRate,
+            onValueChange = {
+                onFieldChange("depreciationRate", it)
+            },
         )
+    )
 
-        FieldsConfiguration(formItems)
-    }
+    FieldsConfiguration(formItems)
 }
+//}
 
 // TODO: Check after if create a component for it.
 @Composable

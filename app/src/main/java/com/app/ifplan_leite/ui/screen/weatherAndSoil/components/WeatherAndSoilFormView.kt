@@ -4,88 +4,93 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.ifplan_leite.R
 import com.app.ifplan_leite.core.data.model.FormFieldModel
 import com.app.ifplan_leite.core.data.model.utils.CurrencyInputField
-import com.app.ifplan_leite.view.WeatherAndSoilViewModel
 
 @Composable
-fun WeatherAndSoilFormView(weatherAndSoilViewModel: WeatherAndSoilViewModel = hiltViewModel()) {
-    val weatherAndSoilState = weatherAndSoilViewModel.weatherAndSoilState.collectAsState()
+fun WeatherAndSoilFormView(
+    precipitation: Double ,
+    maxTemperature: Double,
+    minTemperature: Double,
+    relativeHumidity: Double,
+    velocityVents: Double,
+    nDosage: Double,
+    otherAndWater: Double,
+    waterAvailableToIrrigation: Double,
+    onFieldChange: (String, Double) -> Unit = { s: String, d:Double -> }
+) {
+//    if (isSuccess) {
+    val formItems = listOf(
+        // PRECIPITAÇÃO
+        FormFieldModel(
+            label = stringResource(R.string.precipitation),
+            value = precipitation,
+            onValueChange = { onFieldChange("precipitation", it) },
+        ),
 
-    if (weatherAndSoilState.value.isSuccess) {
-        val formItems = listOf(
-            // PRECIPITAÇÃO
-            FormFieldModel(
-                label = stringResource(R.string.precipitation),
-                value = weatherAndSoilState.value.precipitation,
-                onValueChange = { weatherAndSoilViewModel.updatePrecipitation(it) },
-            ),
+        // TEMPERATURA MÁXIMA
+        FormFieldModel(
+            label = stringResource(R.string.maxTemperature),
+            value = maxTemperature,
+            decimalsNumber = 1,
+            onValueChange = { onFieldChange("maxTemperature", it) },
+        ),
 
-            // TEMPERATURA MÁXIMA
-            FormFieldModel(
-                label = stringResource(R.string.maxTemperature),
-                value = weatherAndSoilState.value.maxTemperature,
-                decimalsNumber = 1,
-                onValueChange = { weatherAndSoilViewModel.updateMaxTemperature(it) },
-            ),
+        // TEMPERATURA MÍNIMA
+        FormFieldModel(
+            label = stringResource(R.string.minTemperature),
+            value = minTemperature,
+            decimalsNumber = 1,
+            onValueChange = { onFieldChange("minTemperature", it) },
+        ),
 
-            // TEMPERATURA MÍNIMA
-            FormFieldModel(
-                label = stringResource(R.string.minTemperature),
-                value = weatherAndSoilState.value.minTemperature,
-                decimalsNumber = 1,
-                onValueChange = { weatherAndSoilViewModel.updateMinTemperature(it) },
-            ),
+        // UMIDADE RELATIVA
+        FormFieldModel(
+            label = stringResource(R.string.relativeHumidity),
+            value = relativeHumidity,
+            decimalsNumber = 1,
+            onValueChange = { onFieldChange("relativeHumidity", it) },
+        ),
 
-            // UMIDADE RELATIVA
-            FormFieldModel(
-                label = stringResource(R.string.relativeHumidity),
-                value = weatherAndSoilState.value.relativeHumidity,
-                decimalsNumber = 1,
-                onValueChange = { weatherAndSoilViewModel.updateRelativeHumidity(it) },
-            ),
+        // VELOCIDADE DO VENTO
+        FormFieldModel(
+            label = stringResource(R.string.velocityVents),
+            value = velocityVents,
+            decimalsNumber = 1,
+            onValueChange = { onFieldChange("VelocityVents", it) },
+        ),
 
-            // VELOCIDADE DO VENTO
-            FormFieldModel(
-                label = stringResource(R.string.velocityVents),
-                value = weatherAndSoilState.value.velocityVents,
-                decimalsNumber = 1,
-                onValueChange = { weatherAndSoilViewModel.updateVelocityVents(it) },
-            ),
+        // DOSE DE N
+        FormFieldModel(
+            label = stringResource(R.string.nDosage),
+            value = nDosage,
+            decimalsNumber = 1,
+            onValueChange = { onFieldChange("nDosage", it) },
+        ),
 
-            // DOSE DE N
-            FormFieldModel(
-                label = stringResource(R.string.nDosage),
-                value = weatherAndSoilState.value.nDosage,
-                decimalsNumber = 1,
-                onValueChange = { weatherAndSoilViewModel.updateNDosage(it) },
-            ),
+        // ÁGUA E OUTROS USOS
+        FormFieldModel(
+            label = stringResource(R.string.otherAndWater),
+            value = otherAndWater,
+            onValueChange = { onFieldChange("otherAndWater", it) },
+        ),
 
-            // ÁGUA E OUTROS USOS
-            FormFieldModel(
-                label = stringResource(R.string.otherAndWater),
-                value = weatherAndSoilState.value.otherAndWater,
-                onValueChange = { weatherAndSoilViewModel.updateOtherAndWater(it) },
-            ),
-
-            // ÁGUA DISPONIVEL PARA IRRIGACAO (m3/dia)
-            FormFieldModel(
-                label = stringResource(R.string.agua_disp_p_irriga_o_m3_dia),
-                value = weatherAndSoilState.value.otherAndWater,
-                decimalsNumber = 2,
-                onValueChange = { weatherAndSoilViewModel.updateWaterAvailableToIrrigation(it) },
-            )
+        // ÁGUA DISPONIVEL PARA IRRIGACAO (m3/dia)
+        FormFieldModel(
+            label = stringResource(R.string.agua_disp_p_irriga_o_m3_dia),
+            value = waterAvailableToIrrigation,
+            decimalsNumber = 2,
+            onValueChange = { onFieldChange("waterAvailableToIrrigation", it) },
         )
+    )
 
-        FieldsConfiguration(formItems)
-    }
+    FieldsConfiguration(formItems)
+//    }
 }
 
 @Composable
